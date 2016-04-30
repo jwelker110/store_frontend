@@ -1,0 +1,13 @@
+<div class="row">
+    <header class="col-md-12">
+        <h1>Recently Added Items</h1>
+    </header>
+</div>
+<div class="row">
+    <!-- each item now -->
+    <div class="col-sm-4 item" ng-repeat="item in homeCtrl.items" ng-click="homeCtrl.viewItem(item.id, item.name)">
+        <h4>{{item.name}}</h4>
+        <h6><em>{{item.owner_name}}</em></h6>
+        <p>{{item.description}}</p>
+    </div>
+</div>
