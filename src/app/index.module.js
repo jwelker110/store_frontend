@@ -2,6 +2,9 @@
   'use strict';
 
   angular
-    .module('frontend', ['ngAnimate', 'ngTouch', 'ngSanitize', 'ngAria', 'ngResource', 'ui.router', 'ui.bootstrap', 'toastr']);
+    .module('frontend', [
+      'ngAnimate', 'ngTouch', 'ngSanitize', 'ngAria',
+      'ngResource', 'ui.router', 'ui.bootstrap', 'toastr',
+      'ngStorage', 'angular-jwt']);
 
 })();
