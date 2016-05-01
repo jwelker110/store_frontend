@@ -4,14 +4,14 @@
   angular.module('frontend')
       .factory('Model', Model);
 
-  Model.$inject = ['$localStorage', '$sessionStorage', 'jwtHelper'];
+  Model.$inject = ['$localStorage', '$sessionStorage', 'jwtHelper', 'Item'];
 
-  function Model($localStorage, $sessionStorage, jwtHelper) {
+  function Model($localStorage, $sessionStorage, jwtHelper, Item) {
     var storage = $localStorage.$default({
       jwt_token_string: null
     });
 
-    return {
+    var model = {
       appName: "Store App",
       navItems: [
         {
@@ -36,12 +36,21 @@
 
       stayLoggedIn: true,
 
+      retrieveItems: retrieveItems,
       getJwtString: getJwtString,
       setJwtString: setJwtString,
       updateUser: updateUser,
       rememberMe: rememberMe
     };
 
+    // get the initial items to display
+    model.retrieveItems();
+
+    return model;
+
+    function retrieveItems(){
+      model.items = Item.items.get({offset: model.items.length, category: model.category});
+    }
 
     function getJwtString(){
 
