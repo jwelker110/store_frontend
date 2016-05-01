@@ -11,7 +11,7 @@
       jwt_token_string: null
     });
 
-    var model = {
+    return {
       appName: "Store App",
       navItems: [
         {
@@ -32,44 +32,7 @@
 
       currentItem: null,
       currentItemMeta: null,
-      items: [
-        {
-          'id': 1,
-          'name': 'first item',
-          'description': 'this is the first item',
-          'owner_name': 'JohnDoe25'
-        },
-        {
-          'id': 2,
-          'name': 'second item',
-          'description': 'this is the first item',
-          'owner_name': 'JohnDoe25'
-        },
-        {
-          'id': 1,
-          'name': 'first item',
-          'description': 'this is the first item',
-          'owner_name': 'JohnDoe25'
-        },
-        {
-          'id': 2,
-          'name': 'second item',
-          'description': 'this is the first item',
-          'owner_name': 'JohnDoe25'
-        },
-        {
-          'id': 1,
-          'name': 'first item',
-          'description': 'this is the first item',
-          'owner_name': 'JohnDoe25'
-        },
-        {
-          'id': 2,
-          'name': 'second item',
-          'description': 'this is the first item',
-          'owner_name': 'JohnDoe25'
-        }
-      ],
+      items: [],
 
       stayLoggedIn: true,
 
@@ -78,8 +41,6 @@
       updateUser: updateUser,
       rememberMe: rememberMe
     };
-
-    return model;
 
 
     function getJwtString(){
