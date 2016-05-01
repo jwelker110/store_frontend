@@ -13,19 +13,9 @@
     vm.Model = Model;
 
     vm.viewItem = viewItem;
-    vm.retrieveItems = retrieveItems;
 
     function viewItem(itemId, itemName, itemDescription) {
-      // set up the model with the current item if it isn't set already
-      if (!vm.Model.currentItem.id || vm.Model.currentItem.id != itemId) {
-        vm.Model.currentItem = {
-          id: itemId,
-          name: itemName,
-          descriptions: itemDescription
-        };
-        // we don't have the meta yet
-        vm.Model.currentItemMeta = null;
-      }
+      vm.Model.setCurrentItem(itemId, itemName, itemDescription);
       $location.url('/items/' + itemName + '/' + itemId);
     }
 
