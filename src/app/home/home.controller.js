@@ -15,9 +15,6 @@
     vm.viewItem = viewItem;
     vm.retrieveItems = retrieveItems;
 
-    // get the initial items to display
-    Model.retrieveItems();
-
     function viewItem(itemId, itemName, itemDescription) {
       // set up the model with the current item if it isn't set already
       if (!vm.Model.currentItem.id || vm.Model.currentItem.id != itemId) {
