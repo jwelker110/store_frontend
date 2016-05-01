@@ -5,53 +5,28 @@
       .module('frontend')
       .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$location', '$log'];
+  HomeController.$inject = ['$location', 'Model', 'Item'];
 
-  function HomeController($location, $log){
+  function HomeController($location, Model, Item){
     var vm = this;
+    var offset = 0;
+
+    vm.Model = Model;
+    offset = vm.Model.items.length;
 
     vm.viewItem = viewItem;
+    vm.retrieveItems = retrieveItems;
 
-    vm.items = [
-      {
-        'id': 1,
-        'name': 'first item',
-        'description': 'this is the first item',
-        'owner_name': 'JohnDoe25'
-      },
-      {
-        'id': 2,
-        'name': 'second item',
-        'description': 'this is the first item',
-        'owner_name': 'JohnDoe25'
-      },
-      {
-        'id': 1,
-        'name': 'first item',
-        'description': 'this is the first item',
-        'owner_name': 'JohnDoe25'
-      },
-      {
-        'id': 2,
-        'name': 'second item',
-        'description': 'this is the first item',
-        'owner_name': 'JohnDoe25'
-      },
-      {
-        'id': 1,
-        'name': 'first item',
-        'description': 'this is the first item',
-        'owner_name': 'JohnDoe25'
-      },
-      {
-        'id': 2,
-        'name': 'second item',
-        'description': 'this is the first item',
-        'owner_name': 'JohnDoe25'
-      }];
+    // get the initial items to display
+    retrieveItems();
 
     function viewItem(itemId, itemName) {
       $location.url('/items/' + itemName + '/' + itemId);
+    }
+
+    function retrieveItems(){
+      // expecting to retrieve an array of items here
+      vm.Model.items = Item.get({offset: offset});
     }
 
   }

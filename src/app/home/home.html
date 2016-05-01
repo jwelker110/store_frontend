@@ -3,11 +3,15 @@
         <h1>Recently Added Items</h1>
     </header>
 </div>
+<h3>{{homeCtrl.offset}}</h3>
 <div class="row">
     <!-- each item now -->
-    <div class="col-sm-4 item" ng-repeat="item in homeCtrl.items" ng-click="homeCtrl.viewItem(item.id, item.name)">
+    <div class="col-sm-4 item" ng-repeat="item in homeCtrl.Model.items" ng-click="homeCtrl.viewItem(item.id, item.name)">
         <h4>{{item.name}}</h4>
         <h6><em>{{item.owner_name}}</em></h6>
         <p>{{item.description}}</p>
     </div>
+</div>
+<div class="row">
+    <a class="btn btn-default" ng-click="homeCtrl.retrieveItems();">Load More</a>
 </div>
