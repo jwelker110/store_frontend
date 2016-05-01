@@ -7,26 +7,29 @@
 
   HomeController.$inject = ['$location', 'Model', 'Item'];
 
-  function HomeController($location, Model, Item){
+  function HomeController($location, Model){
     var vm = this;
-    var offset = 0;
 
     vm.Model = Model;
-    offset = vm.Model.items.length;
 
     vm.viewItem = viewItem;
     vm.retrieveItems = retrieveItems;
 
     // get the initial items to display
-    retrieveItems();
+    Model.retrieveItems();
 
-    function viewItem(itemId, itemName) {
+    function viewItem(itemId, itemName, itemDescription) {
+      // set up the model with the current item if it isn't set already
+      if (!vm.Model.currentItem.id || vm.Model.currentItem.id != itemId) {
+        vm.Model.currentItem = {
+          id: itemId,
+          name: itemName,
+          descriptions: itemDescription
+        };
+        // we don't have the meta yet
+        vm.Model.currentItemMeta = null;
+      }
       $location.url('/items/' + itemName + '/' + itemId);
-    }
-
-    function retrieveItems(){
-      // expecting to retrieve an array of items here
-      vm.Model.items = Item.get({offset: offset});
     }
 
   }
