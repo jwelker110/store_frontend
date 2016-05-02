@@ -1,3 +1,17 @@
 <div class="row">
-    Browse
+    <header class="col-md-12">
+        <h1>Recently Added Items</h1>
+    </header>
+</div>
+<h3>{{browseCtrl.offset}}</h3>
+<div class="row">
+    <!-- each item now -->
+    <div class="col-sm-4 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.id, item.name, item.description)">
+        <h4>{{item.name}}</h4>
+        <h6><em>{{item.owner_name}}</em></h6>
+        <p>{{item.description}}</p>
+    </div>
+</div>
+<div class="row">
+    <a class="btn btn-default" ng-click="browseCtrl.retrieveItems();">Load More</a>
 </div>
