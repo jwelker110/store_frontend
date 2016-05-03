@@ -1,21 +1,16 @@
-<div class="row">
+<div class="row" ng-show="itemCtrl.Model.currentItem">
     <div class="col-sm-6">
-        <!-- image for item -->
+        <img ng-src="{{itemCtrl.Model.currentItem.image_url}}"/>
     </div>
     <div class="col-sm-6">
-        <h1>Item 1</h1>
-        <h3><em>JohnDoe25</em></h3>
-        <p>This is the item description for Item 1</p>
-        <select>
-            <option>Purple</option>
-            <option>Yellow</option>
-            <option>Green</option>
-        </select>
+        <h1>{{itemCtrl.Model.currentItem.name}}</h1>
+        <h3><em>{{itemCtrl.Model.currentItem.owner_name}}</em></h3>
+        <p>{{itemCtrl.Model.currentItem.description}}</p>
         <ul>
-            <li>Price: $25.50</li>
-            <li>Sale Price: $15.99</li>
-            <li>5 left</li>
-            <li>This is the description for Item 1's meta</li>
+            <li>Price: {{itemCtrl.Model.currentItem.base_price}}</li>
+            <li>Sale Price: {{itemCtrl.Model.currentItem.sale_price}}</li>
+            <li>{{itemCtrl.Model.currentItem.stock}} left</li>
+            <li>{{itemCtrl.Model.currentItem.description}}</li>
         </ul>
     </div>
 </div>
