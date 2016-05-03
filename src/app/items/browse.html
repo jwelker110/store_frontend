@@ -6,12 +6,14 @@
 <h3>{{browseCtrl.offset}}</h3>
 <div class="row">
     <!-- each item now -->
-    <div class="col-sm-4 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.id, item.name, item.description)">
+    <div class="col-sm-4 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.id, item.name);">
+        <!-- todo needs an image for the item?-->
         <h4>{{item.name}}</h4>
         <h6><em>{{item.owner_name}}</em></h6>
         <p>{{item.description}}</p>
     </div>
 </div>
 <div class="row">
-    <a class="btn btn-default" ng-click="browseCtrl.retrieveItems();">Load More</a>
+    <a class="btn btn-default" ng-click="browseCtrl.prevItems();">&lt;&lt;</a>
+    <a class="btn btn-default" ng-click="browseCtrl.nextItems();">&gt;&gt;</a>
 </div>

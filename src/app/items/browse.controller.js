@@ -13,10 +13,19 @@
     vm.Model = Model;
 
     vm.viewItem = viewItem;
+    vm.prevItems = prevItems;
+    vm.nextItems = nextItems;
 
-    function viewItem(itemId, itemName, itemDescription) {
-      vm.Model.setCurrentItem(itemId, itemName, itemDescription);
+    function viewItem(itemId, itemName) {
       $location.url('/items/' + itemName + '/' + itemId);
+    }
+
+    function prevItems(){
+      vm.Model.getPrevItems();
+    }
+
+    function nextItems(){
+      vm.Model.getNextItems();
     }
 
   }
