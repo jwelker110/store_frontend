@@ -25,7 +25,7 @@
           controllerAs: 'contactCtrl'
         })
         .state('item', {
-          url: '/items/:itemName/:itemId',
+          url: '/items/:itemName',
           templateUrl: 'app/items/item.html',
           controller: 'ItemController',
           controllerAs: 'itemCtrl'
