@@ -16,8 +16,8 @@
     vm.prevItems = prevItems;
     vm.nextItems = nextItems;
 
-    function viewItem(itemId, itemName) {
-      $location.url('/items/' + itemName + '/' + itemId);
+    function viewItem(itemName) {
+      $location.url('/items/' + itemName);
     }
 
     function prevItems(){

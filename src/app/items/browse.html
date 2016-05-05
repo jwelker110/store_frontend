@@ -6,8 +6,9 @@
 <h3>{{browseCtrl.offset}}</h3>
 <div class="row">
     <!-- each item now -->
-    <div class="col-sm-4 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.id, item.name);">
+    <div class="col-sm-4 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.name);">
         <!-- todo needs an image for the item?-->
+        <img ng-src="{{item.image_url}}"/>
         <h4>{{item.name}}</h4>
         <h6><em>{{item.owner_name}}</em></h6>
         <p>{{item.description}}</p>
