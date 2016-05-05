@@ -15,10 +15,6 @@
       appName: "Store App",
       navItems: [
         {
-          sref: 'home',
-          name: 'Home'
-        },
-        {
           sref: 'browse',
           name: 'Browse'
         }
@@ -31,7 +27,11 @@
       category: null,
 
       itemOffset: 0,
-      currentItem: null,
+      currentItem: {
+        id: null,
+        name: null,
+        description: null
+      },
       currentItemMeta: null,
       items: [],
       itemsAvailable: true,
@@ -65,16 +65,16 @@
       getJwtString: getJwtString,
       setJwtString: setJwtString,
 
-      updateUser: updateUser,
+      updateUser: updateUser
 
     };
 
     // get the categories to display
     getCategories();
     // get the initial items to display
-    getItems();
+    getItems(0);
     // get the initial users to display
-    getUsers();
+    getUsers(0);
 
     updateUser();
 
@@ -84,21 +84,24 @@
      * User methods
      */
     function getNextUsers(){
-      model.userOffset += model.users.length;
-      getUsers();
+      getUsers(model.userOffset + model.users.length);
     }
 
     function getPrevUsers(){
-      model.userOffset -= model.users.length;
-      getUsers();
+      if (model.userOffset == 0) {return;}
+      getUsers(model.userOffset - model.users.length);
     }
 
-    function getUsers(){
-      var users = User.users.get({offset: model.userOffset});
+    function getUsers(offset){
+      var users = User.users.get({offset: offset});
 
       users.$promise.then(function(data){
-        model.usersAvailable = data.length > 0;
-        model.users = data;
+        model.usersAvailable = data.users.length > 0;
+        if (!model.usersAvailable) {
+          // todo toast letting user know no more avail?
+          return;
+        }
+        model.users = data.users;
       });
     }
 
@@ -106,22 +109,25 @@
      * User Items methods
      */
     function getNextUsersItems(){
-      model.usersItemsOffset += model.usersItems.length;
-      getUsersItems();
+      getUsersItems(model.usersItemsOffset + model.usersItems.length);
     }
 
     function getPrevUsersItems(){
       if (model.usersItemsOffset == 0) {return;}
-      model.usersItemsOffset -= model.usersItems.length;
-      getUsersItems();
+      getUsersItems(model.usersItemsOffset - model.usersItems.length);
     }
 
-    function getUsersItems(){
-      var usersItems = User.usersItems.get({offset: model.usersItemsOffset, username: model.currentUser});
+    function getUsersItems(offset){
+      var usersItems = User.usersItems.get({offset: offset, username: model.currentUser});
 
       usersItems.$promise.then(function(data){
-        model.usersItemsAvailable = data.length > 0;
-        model.usersItems = data;
+        model.usersItemsAvailable = data.items.length > 0;
+        if (!model.usersItemsAvailable) {
+          // todo toast letting user know no more avail?
+          return;
+        }
+        model.usersItems = data.items;
+        model.usersItemsOffset = offset;
       });
     }
 
@@ -149,42 +155,42 @@
 
     /**
      * Item methods
+     * TODO THIS ALL NEEDS WORK TO ALLOW NAVIGATION FORWARD / BACKWARD THROUGH ITEMS
      */
     function getNextItems(){
-      model.itemOffset += model.items.length;
-      getItems();
+      getItems(model.itemOffset + model.items.length);
     }
 
     function getPrevItems(){
       if (model.itemOffset == 0) {return;}
-      model.itemOffset -= model.items.length;
-      getItems();
+      getItems(model.itemOffset - model.items.length);
     }
 
-    function getItems(){
-      var items = Item.items.get({offset: model.itemOffset, category: model.category});
+    function getItems(offset){
+      var items = Item.items.get({offset: offset, category: model.category});
 
       items.$promise.then(function(data){
-        model.itemsAvailable = data.length > 0;
-        model.items = data;
+        model.itemsAvailable = data.items.length > 0;
         if (!model.itemsAvailable) {
-          // todo toast letting user know no more avail?
+          // todo toast letting user know no more available
+          return;
         }
+        model.items = data.items;
+        model.itemOffset = offset;
       });
 
     }
 
-    function setCurrentItem(itemId, itemName, itemDescription){
+    function setCurrentItem(itemName){
       // set up the model with the current item if it isn't set already
-      if (!model.currentItem.id || model.currentItem.id != itemId) {
-        model.currentItem = {
-          id: itemId,
-          name: itemName,
-          descriptions: itemDescription
-        };
-        // we don't have the meta yet
-        model.currentItemMeta = null;
+      if (model.currentItem && (!model.currentItem.name || model.currentItem.name != itemName)) {
+        model.currentItem = null;
       }
+      var item = Item.itemDetails.get({name: itemName});
+
+      item.$promise.then(function(data){
+        model.currentItem = data.item;
+      });
     }
 
     /**
