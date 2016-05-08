@@ -4,12 +4,14 @@
   angular.module('frontend')
       .factory('Model', Model);
 
-  Model.$inject = ['$localStorage', '$sessionStorage', 'jwtHelper', 'Item', 'User', 'Category'];
+  Model.$inject = ['$rootScope', '$location', '$localStorage', '$sessionStorage', 'jwtHelper', 'Item', 'User', 'Category'];
 
-  function Model($localStorage, $sessionStorage, jwtHelper, Item, User, Category) {
+  function Model($rootScope, $location, $localStorage, $sessionStorage, jwtHelper, Item, User, Category) {
     var storage = $localStorage.$default({
       jwt_token_string: null
     });
+
+    var prevPath = null;
 
     var model = {
       appName: "Store App",
@@ -19,6 +21,10 @@
           name: 'Browse'
         }
       ],
+
+      formUsername: null,
+      formPassword: null,
+      formEmail: null,
 
       username: null,
       confirmed: false,
@@ -62,9 +68,13 @@
 
       setCategory: setCategory,
 
+      setPrevPath: setPrevPath,
+      getPrevPath: getPrevPath,
+
       getJwtString: getJwtString,
       setJwtString: setJwtString,
 
+      resetUserInfo: resetUserInfo,
       updateUser: updateUser
 
     };
@@ -191,6 +201,17 @@
       item.$promise.then(function(data){
         model.currentItem = data.item;
       });
+    }
+
+    /**
+     * URL set/get
+     */
+    function setPrevPath(path){
+      prevPath = path;
+    }
+
+    function getPrevPath(){
+      return prevPath;
     }
 
     /**
