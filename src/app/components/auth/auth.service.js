@@ -9,7 +9,7 @@
   function Auth($resource){
 
     return {
-      register: $resource('http://localhost:8080/register',
+      register: $resource('http://localhost:8080/register', {},
           {
             submit: {
               method: 'POST',
@@ -23,7 +23,7 @@
               }
             }
           }),
-      login: $resource('http://localhost:8080/login',
+      login: $resource('http://localhost:8080/login', {},
           {
             submit: {
               method: 'POST',
@@ -33,7 +33,7 @@
               }
             }
           }),
-      confirm: $resource('http://localhost:8080/confirm',
+      confirm: $resource('http://localhost:8080/confirm', {},
           {
             submit: {
               method: 'POST',
@@ -45,7 +45,7 @@
               }
             }
           }),
-      reauth: $resource('http://localhost:8080/reauth',
+      reauth: $resource('http://localhost:8080/reauth', {},
           {
             submit: {
               method: 'POST',
@@ -54,7 +54,7 @@
               }
             }
           }),
-      goauth: $resource('http://localhost:8080/goauth',
+      goauth: $resource('http://localhost:8080/goauth', {},
           {
             submit: {
               method: 'POST',
