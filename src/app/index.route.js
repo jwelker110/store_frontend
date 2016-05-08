@@ -5,7 +5,8 @@
     .module('frontend')
     .config(routerConfig);
 
-  /** @ngInject */
+  routerConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
+
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('browse', {
@@ -36,11 +37,17 @@
           controller: 'SettingsController',
           controllerAs: 'settingsCtrl'
         })
-        .state('login-register', {
-          url: '/login-register',
-          templateUrl: 'app/user/login-register.html',
-          controller: 'LoginRegisterController',
-          controllerAs: 'loginRegCtrl'
+        .state('login', {
+          url: '/login',
+          templateUrl: 'app/user/login.html',
+          controller: 'LoginController',
+          controllerAs: 'loginCtrl'
+        })
+        .state('register', {
+          url: '/register',
+          templateUrl: 'app/user/register.html',
+          controller: 'RegisterController',
+          controllerAs: 'regCtrl'
         });
 
     $urlRouterProvider.otherwise('/');
