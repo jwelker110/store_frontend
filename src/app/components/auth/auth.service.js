@@ -11,47 +11,57 @@
     return {
       register: $resource('http://localhost:8080/register',
           {
-            first_name: null,
-            last_name: null,
-            email: null,
-            username: null,
-            password: null,
-            g_recaptcha_response: null
-          },
-          {
-            submit: {method: 'POST'}
+            submit: {
+              method: 'POST',
+              params: {
+                first_name: null,
+                last_name: null,
+                email: null,
+                username: null,
+                password: null,
+                g_recaptcha_response: null
+              }
+            }
           }),
       login: $resource('http://localhost:8080/login',
           {
-            username: null,
-            password: null
-          },
-          {
-            submit: {method: 'POST'}
+            submit: {
+              method: 'POST',
+              params: {
+                username: null,
+                password: null
+              }
+            }
           }),
       confirm: $resource('http://localhost:8080/confirm',
           {
-            token: null,
-            jwt_token: null,
-            username: null,
-            confirmed: null
-          },
-          {
-            submit: {method: 'POST'}
+            submit: {
+              method: 'POST',
+              params: {
+                token: null,
+                jwt_token: null,
+                username: null,
+                confirmed: null
+              }
+            }
           }),
       reauth: $resource('http://localhost:8080/reauth',
           {
-            jwt_token: null
-          },
-          {
-            submit: {method: 'POST'}
+            submit: {
+              method: 'POST',
+              params: {
+                jwt_token: null
+              }
+            }
           }),
       goauth: $resource('http://localhost:8080/goauth',
           {
-            code: null
-          },
-          {
-            submit: {method: 'POST'}
+            submit: {
+              method: 'POST',
+              params: {
+                code: null
+              }
+            }
           })
     }
 

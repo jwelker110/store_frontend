@@ -5,10 +5,14 @@
       .module('frontend')
       .controller('LoginRegisterController', LoginRegisterController);
 
-  LoginRegisterController.$inject = [];
+  LoginRegisterController.$inject = ['Model', 'Auth'];
 
-  function LoginRegisterController() {
+  function LoginRegisterController(Model, Auth) {
     var vm = this;
+
+    vm.Model = Model;
+
+
 
   }
 
