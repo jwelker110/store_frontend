@@ -12,8 +12,10 @@
 
     vm.Model = Model;
     vm.navItems = Model.navItems;
+
     vm.hidden = isHidden;
     vm.toggleHidden = toggleHidden;
+    vm.login = login;
     vm.logout = logout;
 
     function isHidden(newVal){
@@ -25,7 +27,13 @@
     }
 
     function logout(){
-      // todo implement
+      Model.resetUserInfo();
+      $location.path('/');
+    }
+
+    function login(){
+      Model.setPrevPath($location.path());
+      $location.path('/login');
     }
 
 

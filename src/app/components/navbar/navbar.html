@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">{{navCtrl.Model.appName}}</a>
+            <a class="navbar-brand" ui-sref="browse">{{navCtrl.Model.appName}}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,10 +18,10 @@
                     <a ui-sref="{{link.sref}}">{{link.name}}</a>
                 </li>
                 <li ng-hide="navCtrl.Model.username">
-                    <a ui-sref="login-register">Login | Register</a>
+                    <a ng-click="navCtrl.login();">Login</a>
                 </li>
                 <li ng-show="navCtrl.Model.username" ng-click="navCtrl.logout();">
-                    <a ui-sref="logout">Logout</a>
+                    <a>Logout</a>
                 </li>
                 <li ng-show="navCtrl.Model.username">
                     <a ui-sref="settings"><span class="glyphicon glyphicon-cog"></span></a>
