@@ -54,12 +54,23 @@
               }
             }
           }),
+      goauthVerify: $resource('https://www.googleapis.com/oauth2/v3/tokeninfo', {},
+          {
+            submit: {
+              method: 'GET',
+              params: {
+                access_token: null
+              }
+            }
+          }),
       goauth: $resource('http://localhost:8080/goauth', {},
           {
             submit: {
               method: 'POST',
               params: {
-                code: null
+                email: null,
+                oa_id: null,
+                username: null
               }
             }
           })
