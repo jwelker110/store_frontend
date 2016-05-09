@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-6">
+        <h4>Login | Register</h4>
+        <form class="form-horizontal">
+            <input class="form-control" type="email" ng-model="loginCtrl.Model.formEmail" placeholder="Username" ng-required="true"/>
+            <input class="form-control" type="password" ng-model="loginCtrl.Model.formPassword" placeholder="Password" ng-required="true"/>
+            <a class="btn btn-default" ng-click="loginCtrl.login()">Login</a>
+            <a class="btn btn-default" ng-click="loginCtrl.register()">Register</a>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h4>Skip that by using your Google or Facebook account</h4>
+        <a class="btn btn-default" ng-click="loginCtrl.goauthLogin()">Google</a>
+        <a class="btn btn-default" ng-click="">Facebook</a>
+    </div>
+</div>
