@@ -243,7 +243,7 @@
       var payload = jwtHelper.decodeToken(storage.jwt_token_string);
 
       model.username = payload.username;
-      model.email = payload.email; // todo change this maybe?
+      model.email = payload.email;
       model.avatarUrl = payload.avatarUrl;
       model.confirmed = payload.confirmed;
     }
