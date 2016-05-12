@@ -26,7 +26,12 @@
       formPassword: null,
       formEmail: null,
 
+      currentPass: null,
+      newPass: null,
+
       username: null,
+      email: null,
+      avatarUrl: null,
       confirmed: false,
       rememberMe: false,
 
@@ -238,6 +243,8 @@
       var payload = jwtHelper.decodeToken(storage.jwt_token_string);
 
       model.username = payload.username;
+      model.email = payload.email; // todo change this maybe?
+      model.avatarUrl = payload.avatarUrl;
       model.confirmed = payload.confirmed;
     }
 
