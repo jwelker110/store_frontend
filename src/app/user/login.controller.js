@@ -9,12 +9,6 @@
   function LoginController($location, $window, Auth, Model){
     var vm = this;
 
-    // goauth config
-    var client_id = '576267855242-05a9nsof8812t15vdbj08q3fcvjlkl9d.apps.googleusercontent.com';
-    var response_type = 'token';
-    var redirect_uri = 'http://localhost:5050/goauth';
-    var scope = 'email profile';
-
     var h = $location.hash();
     var params = h.split('&');
     if (params.length == 4) {
@@ -24,6 +18,11 @@
       goauthLoginFinish(state, access_code);
     }
 
+    // goauth config
+    var client_id = '576267855242-05a9nsof8812t15vdbj08q3fcvjlkl9d.apps.googleusercontent.com';
+    var response_type = 'token';
+    var redirect_uri = 'http://localhost:5050/goauth';
+    var scope = 'email profile';
 
     vm.Model = Model;
 
