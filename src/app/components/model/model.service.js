@@ -4,14 +4,14 @@
   angular.module('frontend')
       .factory('Model', Model);
 
-  Model.$inject = ['$rootScope', '$location', '$localStorage', '$sessionStorage', 'jwtHelper', 'Item', 'User', 'Category'];
+  Model.$inject = ['$localStorage', '$sessionStorage', 'jwtHelper', 'Item', 'User', 'Category'];
 
-  function Model($rootScope, $location, $localStorage, $sessionStorage, jwtHelper, Item, User, Category) {
+  function Model($localStorage, $sessionStorage, jwtHelper, Item, User, Category) {
     var storage = $localStorage.$default({
       jwt_token_string: null
     });
 
-    var prevPath = null;
+    var prevPath = '/';
 
     var model = {
       appName: "Store App",
@@ -32,8 +32,9 @@
       username: null,
       email: null,
       avatarUrl: null,
+      isOauth: false,
       confirmed: false,
-      rememberMe: false,
+      rememberMe: true,
 
       category: null,
 
@@ -245,11 +246,15 @@
       model.username = payload.username;
       model.email = payload.email;
       model.avatarUrl = payload.avatarUrl;
+      model.isOauth = payload.isOauth;
       model.confirmed = payload.confirmed;
     }
 
     function resetUserInfo(){
       model.username = null;
+      model.email = null;
+      model.avatarUrl = null;
+      model.isOauth = null;
       model.confirmed = null;
       storage.jwt_token_string = null;
     }
