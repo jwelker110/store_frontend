@@ -73,6 +73,20 @@
                 username: null
               }
             }
+          }),
+      settings: $resource('http://localhost:8080/settings', {},
+          {
+            update: {
+              method: 'POST',
+              params: {
+                username: null,
+                email: null,
+                oa_id: null,
+                password: null,
+                old_password: null,
+                avatar_url: null
+              }
+            }
           })
     }
 
