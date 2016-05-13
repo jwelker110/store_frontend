@@ -14,7 +14,7 @@
     if (params.length == 4) {
       var state = params[0].split('=')[1];
       var access_code = params[1].split('=')[1];
-
+      $location.hash('');
       goauthLoginFinish(state, access_code);
     }
 
@@ -31,6 +31,8 @@
     vm.goauthLogin = goauthLogin;
 
     function login(){
+      Model.setStorageType();
+
       var login = Auth.login.submit({
         username: Model.formUsername,
         password: Model.formPassword
@@ -45,6 +47,8 @@
     }
 
     function register(){
+      Model.setStorageType();
+
       var reg = Auth.register.submit({
         username: Model.formUsername,
         password: Model.formPassword,
@@ -96,7 +100,12 @@
         goauth.$promise.then(function(data){
           Model.setJwtString(data.jwt_token);
           Model.updateUser();
-          $location.path(state);
+          if (state) {
+            $location.path(state);
+          }
+          else {
+            $location.path('/');
+          }
         });
 
       }, function(data){
