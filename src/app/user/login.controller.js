@@ -9,6 +9,11 @@
   function LoginController($location, $window, Auth, Model){
     var vm = this;
 
+    var actions = {
+      login: login,
+      register: register
+    };
+
     var h = $location.hash();
     var params = h.split('&');
     if (params.length == 4) {
@@ -26,14 +31,21 @@
 
     vm.Model = Model;
 
-    vm.login = login;
-    vm.register = register;
+    vm.submit = submit;
     vm.goauthLogin = goauthLogin;
+
+    function submit(action){
+      if (actions[action]) {
+        actions[action]();
+      }
+    }
 
     function login(){
       Model.setStorageType();
+      Model.formUsername = Model.formEmail ? Model.formEmail.split('@')[0] : null;
 
       var login = Auth.login.submit({
+        email: Model.formEmail,
         username: Model.formUsername,
         password: Model.formPassword
       });
@@ -48,11 +60,11 @@
 
     function register(){
       Model.setStorageType();
+      Model.formUsername = Model.formEmail ? Model.formEmail.split('@')[0] : null;
 
       var reg = Auth.register.submit({
         username: Model.formUsername,
         password: Model.formPassword,
-        confirm: Model.formPassword,
         email: Model.formEmail
       });
 
