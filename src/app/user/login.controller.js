@@ -4,24 +4,21 @@
   angular.module('frontend')
       .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['$location', '$window', 'Auth', 'Model', 'User'];
+  LoginController.$inject = ['$location', '$window', 'Auth', 'Model'];
 
-  function LoginController($location, $window, Auth, Model, User){
+  function LoginController($location, $window, Auth, Model){
     var vm = this;
 
-    // these are the actions associated with the login/register form
-    var actions = {
-      login: login,
-      register: register
-    };
-
+    // grab the current hash let's see if we have args related to OAuth
     var h = $location.hash();
-    var params = h.split('&');
-    if (params.length == 4) {
-      var state = params[0].split('=')[1];
-      var access_code = params[1].split('=')[1];
-      $location.hash('');
-      goauthLoginFinish(state, access_code);
+    var args = parseArgs(h);
+
+    $location.hash(''); // get that ugly stuff outta here!
+
+    if (!args['access_token']) { // couldn't grab an access token
+      $location.path(args['state']);
+    } else {
+      goauthLoginFinish(args['state'], args['access_token']);
     }
 
     // goauth config
@@ -30,91 +27,52 @@
     var redirect_uri = 'http://localhost:5050/goauth';
     var scope = 'email profile';
 
-    vm.Model = Model;
-
-    vm.submit = submit;
     vm.goauthLogin = goauthLogin;
 
-    function submit(action){
-      if (actions[action]) {
-        actions[action]();
+    /**
+     * Parse arguments that are specified in the hash portion of url after OAuth request
+     * @param hash - the URL's hash
+     * @returns object containing the key-value pairs of arguments present in the passed in hash
+     */
+    function parseArgs(hash){
+      var args = {};
+      var params = hash.split('&');
+      for(var i = 0, l = params.length; i < l; i++){
+        var keyVal = params[i].split('=');
+        args[keyVal[0]] = keyVal[1];
       }
+      return args;
     }
 
     /**
-     * Login the user with the given email and password
+     * Begin the OAuth login process by requesting the user's permission
+     * to access their Google Account profile/email
      */
-    function login(){
-      Model.setStorageType(); // based on 'remember me'
-
-      // begin the login
-      var login = Auth.login.submit({
-        email: Model.formEmail,
-        password: Model.formPassword
-      });
-
-      // login promise (start loading action?)
-      login.$promise.then(function(data){
-        Model.setJwtString(data.jwt_token);
-        Model.updateUser();
-        $location.path(Model.getPrevPath());
-        // todo toast user login possibly?
-      });
-    }
-
-    function register(){
-      Model.setStorageType();
-      // create a username based off the user's email, if username already exists, ask user to create a new one
-      Model.formUsername = Model.formEmail ? Model.formEmail.split('@')[0] : null;
-
-      // hit endpoint to check if username exists. If it does, the user needs to know
-      var exist = User.usersExists.get({username: Model.formUsername});
-
-      exist.$promise.then(function(data){
-        if (data.exists) {
-          // todo toast username already taken
-          return;
-        }
-
-        var reg = Auth.register.submit({
-          username: Model.formUsername,
-          password: Model.formPassword,
-          email: Model.formEmail
-        });
-
-        reg.$promise.then(function(data){
-          Model.setJwtString(data.jwt_token);
-          Model.updateUser();
-          $location.path(Model.getPrevPath());
-          // todo toast user confirm email possibly?
-        });
-      });
-
-
-    }
-
     function goauthLogin(){
-      var state = Model.getPrevPath();
+      var state = $location.path(); // return the user here after login
 
+      // redirect the user to the OAuth consent screen
       $window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' +
           'client_id=' + client_id +
           '&response_type=' + response_type +
           '&redirect_uri=' + redirect_uri +
           '&scope=' + scope +
           '&state=' + state;
-
     }
 
     function goauthLoginFinish(state, access_code){
+      // gotta verify the token we received from user consent
       var verify = Auth.goauthVerify.submit({access_token: access_code});
 
+      // once the result is returned we can proceed to register/login user
       verify.$promise.then(function(data){
         var audience = data.aud;
-        if (audience != client_id) {
+        if (audience != client_id) { // the token has been tampered with?
           console.log('audience mismatch');
           // todo warn the user?
           return;
         }
+        // necessary info
         var email = data.email;
         var oa_id = data.sub;
         var username = data.email.split('@')[0];
@@ -126,15 +84,12 @@
           username: username
         });
 
+        // once we have a response we can log the user in with the JWT returned
         goauth.$promise.then(function(data){
           Model.setJwtString(data.jwt_token);
           Model.updateUser();
-          if (state) {
-            $location.path(state);
-          }
-          else {
-            $location.path('/');
-          }
+
+          $location.path(state ? state : '/');
         });
 
       }, function(data){
