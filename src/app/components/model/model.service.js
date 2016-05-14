@@ -81,7 +81,8 @@
       setJwtString: setJwtString,
 
       resetUserInfo: resetUserInfo,
-      updateUser: updateUser
+      updateUser: updateUser,
+      setStorageType: setStorageType
 
     };
 

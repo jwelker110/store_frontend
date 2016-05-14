@@ -16,6 +16,10 @@
 
     function updateSettings(){
       // update user settings here
+      // basically, going to pull all user settings and send to the server
+      // if user is oauth account, they are not allowed to change their email or set a password
+      // this info should be stored in the JWT
+
     }
 
   }

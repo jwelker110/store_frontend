@@ -7,10 +7,10 @@
     <div class="col-sm-4">
         <form class="form-horizontal">
             <input class="form-control" type="text" ng-model="settingsCtrl.Model.username"/>
-            <input class="form-control" type="email" ng-model="settingsCtrl.Model.email"/>
+            <input ng-show="settingsCtrl.Model.email" class="form-control" type="email" ng-model="settingsCtrl.Model.email"/>
         </form>
     </div>
-    <div class="col-sm-4">
+    <div ng-show="!settingsCtrl.Model.isOauth" class="col-sm-4">
         <form class="form-horizontal">
             <input class="form-control" type="password" ng-model="settingsCtrl.Model.currentPass" placeholder="Current Password"/>
             <input class="form-control" type="password" ng-model="settingsCtrl.Model.newPass" placeholder="New Password"/>
