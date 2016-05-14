@@ -10,7 +10,8 @@
 
     return {
       users: $resource('http://localhost:8080/api/v1/users.json', {offset: 0}),
-      usersItems: $resource('http://localhost:8080/api/v1/users/items.json', {offset: 0, username: null})
+      usersItems: $resource('http://localhost:8080/api/v1/users/items.json', {offset: 0, username: null}),
+      usersExists: $resource('http://localhost:8080/api/v1/users/exists.json', {username: null})
     };
 
   }
