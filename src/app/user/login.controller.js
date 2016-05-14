@@ -4,11 +4,12 @@
   angular.module('frontend')
       .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['$location', '$window', 'Auth', 'Model'];
+  LoginController.$inject = ['$location', '$window', 'Auth', 'Model', 'User'];
 
-  function LoginController($location, $window, Auth, Model){
+  function LoginController($location, $window, Auth, Model, User){
     var vm = this;
 
+    // these are the actions associated with the login/register form
     var actions = {
       login: login,
       register: register
@@ -40,16 +41,19 @@
       }
     }
 
+    /**
+     * Login the user with the given email and password
+     */
     function login(){
-      Model.setStorageType();
-      Model.formUsername = Model.formEmail ? Model.formEmail.split('@')[0] : null;
+      Model.setStorageType(); // based on 'remember me'
 
+      // begin the login
       var login = Auth.login.submit({
         email: Model.formEmail,
-        username: Model.formUsername,
         password: Model.formPassword
       });
 
+      // login promise (start loading action?)
       login.$promise.then(function(data){
         Model.setJwtString(data.jwt_token);
         Model.updateUser();
@@ -60,20 +64,33 @@
 
     function register(){
       Model.setStorageType();
+      // create a username based off the user's email, if username already exists, ask user to create a new one
       Model.formUsername = Model.formEmail ? Model.formEmail.split('@')[0] : null;
 
-      var reg = Auth.register.submit({
-        username: Model.formUsername,
-        password: Model.formPassword,
-        email: Model.formEmail
+      // hit endpoint to check if username exists. If it does, the user needs to know
+      var exist = User.usersExists.get({username: Model.formUsername});
+
+      exist.$promise.then(function(data){
+        if (data.exists) {
+          // todo toast username already taken
+          return;
+        }
+
+        var reg = Auth.register.submit({
+          username: Model.formUsername,
+          password: Model.formPassword,
+          email: Model.formEmail
+        });
+
+        reg.$promise.then(function(data){
+          Model.setJwtString(data.jwt_token);
+          Model.updateUser();
+          $location.path(Model.getPrevPath());
+          // todo toast user confirm email possibly?
+        });
       });
 
-      reg.$promise.then(function(data){
-        Model.setJwtString(data.jwt_token);
-        Model.updateUser();
-        $location.path(Model.getPrevPath());
-        // todo toast user confirm email possibly?
-      });
+
     }
 
     function goauthLogin(){
