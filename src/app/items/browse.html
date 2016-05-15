@@ -3,10 +3,9 @@
         <h1>Recently Added Items</h1>
     </header>
 </div>
-<h3>{{browseCtrl.offset}}</h3>
 <div class="row">
     <!-- each item now -->
-    <div class="col-sm-4 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.name);">
+    <div class="col-xs-6 col-sm-4 col-md-3 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.name);">
         <!-- todo needs an image for the item?-->
         <img ng-src="{{item.image_url}}"/>
         <h4>{{item.name}}</h4>
