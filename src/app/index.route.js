@@ -15,6 +15,12 @@
           controller: 'BrowseController',
           controllerAs: 'browseCtrl'
         })
+        .state('category', {
+          url: '/category/:categoryName',
+          templateUrl: 'app/items/category.html',
+          controller: 'CategoryController',
+          controllerAs: 'catCtrl'
+        })
         .state('login', {
           url: '/login',
           templateUrl: 'app/user/login.html',
