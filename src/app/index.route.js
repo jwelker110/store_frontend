@@ -18,7 +18,8 @@
         .state('login', {
           url: '/login',
           templateUrl: 'app/user/login.html',
-          controller: 'LoginController'
+          controller: 'LoginController',
+          controllerAs: 'loginCtrl'
         })
         .state('about', {
           url: '/about',
