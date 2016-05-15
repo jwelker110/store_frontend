@@ -16,6 +16,10 @@ form {
   max-width: 320px;
 }
 
+.nav.navbar-nav:focus {
+  outline: none;
+}
+
 .dropdown:hover > .dropdown-menu {
   display: inline-block;
 }
