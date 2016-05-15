@@ -7,7 +7,7 @@
   LoginController.$inject = ['$location', '$window', 'Auth', 'Model'];
 
   function LoginController($location, $window, Auth, Model){
-    var vm = this;
+    var client_id = '576267855242-05a9nsof8812t15vdbj08q3fcvjlkl9d.apps.googleusercontent.com';
 
     // grab the current hash let's see if we have args related to OAuth
     var h = $location.hash();
@@ -15,19 +15,15 @@
 
     $location.hash(''); // get that ugly stuff outta here!
 
-    if (!args['access_token']) { // couldn't grab an access token
+    if (args['error']) { // couldn't grab an access token, received error
       $location.path(args['state']);
-    } else {
+    }
+    else if (!args['access_token']) { // haven't tried to login yet
+      goauthLogin();
+    }
+    else {
       goauthLoginFinish(args['state'], args['access_token']);
     }
-
-    // goauth config
-    var client_id = '576267855242-05a9nsof8812t15vdbj08q3fcvjlkl9d.apps.googleusercontent.com';
-    var response_type = 'token';
-    var redirect_uri = 'http://localhost:5050/goauth';
-    var scope = 'email profile';
-
-    vm.goauthLogin = goauthLogin;
 
     /**
      * Parse arguments that are specified in the hash portion of url after OAuth request
@@ -49,11 +45,17 @@
      * to access their Google Account profile/email
      */
     function goauthLogin(){
-      var state = $location.path(); // return the user here after login
+      // goauth config
+      var response_type = 'token';
+      var redirect_uri = 'http://localhost:5050/goauth';
+      var scope = 'email profile';
+
+      var state = Model.getPrevPath(); // return the user here after login
 
       // redirect the user to the OAuth consent screen
       $window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' +
-          'client_id=' + client_id +
+          'access_type=online' +
+          '&client_id=' + client_id +
           '&response_type=' + response_type +
           '&redirect_uri=' + redirect_uri +
           '&scope=' + scope +
