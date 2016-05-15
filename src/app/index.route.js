@@ -15,6 +15,11 @@
           controller: 'BrowseController',
           controllerAs: 'browseCtrl'
         })
+        .state('login', {
+          url: '/login',
+          templateUrl: 'app/user/login.html',
+          controller: 'LoginController'
+        })
         .state('about', {
           url: '/about',
           templateUrl: 'app/about/about.html'
@@ -30,24 +35,6 @@
           templateUrl: 'app/items/item.html',
           controller: 'ItemController',
           controllerAs: 'itemCtrl'
-        })
-        .state('settings', {
-          url: '/settings',
-          templateUrl: 'app/user/settings.html',
-          controller: 'SettingsController',
-          controllerAs: 'settingsCtrl'
-        })
-        .state('login', {
-          url: '/login',
-          templateUrl: 'app/user/login.html',
-          controller: 'LoginController',
-          controllerAs: 'loginCtrl'
-        })
-        .state('register', {
-          url: '/register',
-          templateUrl: 'app/user/register.html',
-          controller: 'RegisterController',
-          controllerAs: 'regCtrl'
         });
 
     $urlRouterProvider.otherwise('/');
