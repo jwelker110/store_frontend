@@ -17,6 +17,14 @@
                 <li ng-repeat="link in navCtrl.navItems">
                     <a ui-sref="{{link.sref}}">{{link.name}}</a>
                 </li>
+                <li class="dropdown">
+                    <a>Category</a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="cat in navCtrl.Model.categories">
+                            <a href="/#/category/{{cat.name}}">{{cat.name}}</a>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a ng-show="!navCtrl.Model.username" ng-click="navCtrl.login()">Login</a>
                     <a ng-show="navCtrl.Model.username" ng-click="navCtrl.logout()">Logout</a>
