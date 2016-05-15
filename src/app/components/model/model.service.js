@@ -158,7 +158,7 @@
       var cat = Category.categories.get();
 
       cat.$promise.then(function(data){
-        model.categories = data;
+        model.categories = data.categories;
       });
     }
 
