@@ -5,10 +5,13 @@
       .module('frontend')
       .controller('BrowseController', BrowseController);
 
-  BrowseController.$inject = ['$location', 'Model', 'Item'];
+  BrowseController.$inject = ['$stateParams', '$location', 'Model', 'Item'];
 
-  function BrowseController($location, Model){
+  function BrowseController($stateParams, $location, Model){
     var vm = this;
+
+    vm.category = $stateParams.categoryName;
+    setCategory(vm.category ? vm.category : null);
 
     vm.Model = Model;
 
@@ -20,12 +23,16 @@
       $location.url('/items/' + itemName);
     }
 
+    function setCategory(categoryName) {
+      Model.setCategory(categoryName);
+    }
+
     function prevItems(){
-      vm.Model.getPrevItems();
+      Model.getPrevItems();
     }
 
     function nextItems(){
-      vm.Model.getNextItems();
+      Model.getNextItems();
     }
 
   }
