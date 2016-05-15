@@ -5,7 +5,8 @@
     .module('frontend')
     .config(config);
 
-  /** @ngInject */
+  config.$inject = ['$logProvider'];
+
   function config($logProvider) {
     // Enable log
     $logProvider.debugEnabled(true);
