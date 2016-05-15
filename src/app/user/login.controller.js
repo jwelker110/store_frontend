@@ -7,23 +7,31 @@
   LoginController.$inject = ['$location', '$window', 'Auth', 'Model'];
 
   function LoginController($location, $window, Auth, Model){
+    var vm = this;
+
+    vm.Model = Model;
+
+    vm.begin = false;
+    vm.finish = false;
+
+    vm.goauthLogin = goauthLogin;
+    vm.goauthLoginFinish = goauthLoginFinish;
+
     var client_id = '576267855242-05a9nsof8812t15vdbj08q3fcvjlkl9d.apps.googleusercontent.com';
 
     // grab the current hash let's see if we have args related to OAuth
     var h = $location.hash();
-    var args = parseArgs(h);
-
     $location.hash(''); // get that ugly stuff outta here!
+
+    var args = parseArgs(h);
 
     if (args['error']) { // couldn't grab an access token, received error
       $location.path(args['state']);
+    } else if (args['access_token']) {
+      vm.finish = true;
     }
-    else if (!args['access_token']) { // haven't tried to login yet
-      goauthLogin();
-    }
-    else {
-      goauthLoginFinish(args['state'], args['access_token']);
-    }
+
+    vm.begin = !vm.finish;
 
     /**
      * Parse arguments that are specified in the hash portion of url after OAuth request
@@ -62,9 +70,11 @@
           '&state=' + state;
     }
 
-    function goauthLoginFinish(state, access_code){
+    function goauthLoginFinish(rememberMe){
+      Model.rememberMe = rememberMe;
+
       // gotta verify the token we received from user consent
-      var verify = Auth.goauthVerify.submit({access_token: access_code});
+      var verify = Auth.goauthVerify.submit({access_token: args['access_token']});
 
       // once the result is returned we can proceed to register/login user
       verify.$promise.then(function(data){
@@ -88,10 +98,11 @@
 
         // once we have a response we can log the user in with the JWT returned
         goauth.$promise.then(function(data){
+          Model.setStorageType();
           Model.setJwtString(data.jwt_token);
           Model.updateUser();
 
-          $location.path(state ? state : '/');
+          $location.path(args['state'] ? args['state'] : '/');
         });
 
       }, function(data){
