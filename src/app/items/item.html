@@ -6,8 +6,8 @@
         <h1>{{itemCtrl.Model.currentItem.name}}</h1>
         <h3><em>{{itemCtrl.Model.currentItem.owner_name}}</em></h3>
         <ul>
-            <li>Price: {{itemCtrl.Model.currentItem.price}}</li>
-            <li>Sale Price: {{itemCtrl.Model.currentItem.sale_price}}</li>
+            <li>Price: {{itemCtrl.Model.currentItem.price | currency:"USD $":2}}</li>
+            <li>Sale Price: {{itemCtrl.Model.currentItem.sale_price | currency:"USD $":2}}</li>
             <li>{{itemCtrl.Model.currentItem.stock}} left</li>
         </ul>
         <p>{{itemCtrl.Model.currentItem.description}}</p>
