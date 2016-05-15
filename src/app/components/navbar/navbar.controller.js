@@ -15,8 +15,22 @@
 
     vm.hidden = isHidden;
     vm.toggleHidden = toggleHidden;
+
     vm.login = login;
     vm.logout = logout;
+
+    function login(){
+      Model.setPrevPath($location.path());
+      $location.path('/login');
+    }
+    /**
+     * Reset the stored information related to the currently logged
+     * in user.
+     */
+    function logout(){
+      Model.resetUserInfo();
+      $location.path('/');
+    }
 
     function isHidden(newVal){
       return newVal ? hidden = newVal : hidden;
@@ -25,17 +39,6 @@
     function toggleHidden(){
       hidden = !hidden;
     }
-
-    function logout(){
-      Model.resetUserInfo();
-      $location.path('/');
-    }
-
-    function login(){
-      Model.setPrevPath($location.path());
-      $location.path('/login');
-    }
-
 
   }
 

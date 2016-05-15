@@ -17,11 +17,9 @@
                 <li ng-repeat="link in navCtrl.navItems">
                     <a ui-sref="{{link.sref}}">{{link.name}}</a>
                 </li>
-                <li ng-hide="navCtrl.Model.username">
-                    <a ng-click="navCtrl.login();">Login</a>
-                </li>
-                <li ng-show="navCtrl.Model.username" ng-click="navCtrl.logout();">
-                    <a>Logout</a>
+                <li>
+                    <a ng-show="!navCtrl.Model.username" ng-click="navCtrl.login()">Login</a>
+                    <a ng-show="navCtrl.Model.username" ng-click="navCtrl.logout()">Logout</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
