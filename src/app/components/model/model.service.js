@@ -31,7 +31,12 @@
       currentItem: {
         id: null,
         name: null,
-        description: null
+        owner_name: null,
+        image_url: null,
+        description: null,
+        price: null,
+        sale_price: null,
+        stock: null
       },
       currentItemMeta: null,
       items: [],
