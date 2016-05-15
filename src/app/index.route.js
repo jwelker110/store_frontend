@@ -17,31 +17,21 @@
         })
         .state('category', {
           url: '/category/:categoryName',
-          templateUrl: 'app/items/category.html',
-          controller: 'CategoryController',
-          controllerAs: 'catCtrl'
-        })
-        .state('login', {
-          url: '/login',
-          templateUrl: 'app/user/login.html',
-          controller: 'LoginController',
-          controllerAs: 'loginCtrl'
-        })
-        .state('about', {
-          url: '/about',
-          templateUrl: 'app/about/about.html'
-        })
-        .state('contact', {
-          url: '/contact',
-          templateUrl: 'app/contact/contact.html',
-          controller: 'ContactController',
-          controllerAs: 'contactCtrl'
+          templateUrl: 'app/items/browse.html',
+          controller: 'BrowseController',
+          controllerAs: 'browseCtrl'
         })
         .state('item', {
           url: '/items/:itemName',
           templateUrl: 'app/items/item.html',
           controller: 'ItemController',
           controllerAs: 'itemCtrl'
+        })
+        .state('login', {
+          url: '/login',
+          templateUrl: 'app/user/login.html',
+          controller: 'LoginController',
+          controllerAs: 'loginCtrl'
         });
 
     $urlRouterProvider.otherwise('/');
