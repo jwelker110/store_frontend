@@ -15,7 +15,7 @@
     vm.itemId = $stateParams.itemId;
     vm.itemName = $stateParams.itemName;
 
-    vm.Model.setCurrentItem(vm.itemName);
+    Model.setCurrentItem(vm.itemName);
 
   }
 

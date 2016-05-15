@@ -5,12 +5,11 @@
     <div class="col-sm-6">
         <h1>{{itemCtrl.Model.currentItem.name}}</h1>
         <h3><em>{{itemCtrl.Model.currentItem.owner_name}}</em></h3>
-        <p>{{itemCtrl.Model.currentItem.description}}</p>
         <ul>
-            <li>Price: {{itemCtrl.Model.currentItem.base_price}}</li>
+            <li>Price: {{itemCtrl.Model.currentItem.price}}</li>
             <li>Sale Price: {{itemCtrl.Model.currentItem.sale_price}}</li>
             <li>{{itemCtrl.Model.currentItem.stock}} left</li>
-            <li>{{itemCtrl.Model.currentItem.description}}</li>
         </ul>
+        <p>{{itemCtrl.Model.currentItem.description}}</p>
     </div>
 </div>
