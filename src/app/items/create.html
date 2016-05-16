@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Add your own item</h1>
+    </div>
+    <div class="col-md-12">
+        <form name="itemForm" novalidate>
+            <div class="form-group">
+                <label for="itemName">Name:</label>
+                <input id="itemName" class="form-control" name="itemName" ng-model="createCtrl.name" type="text" required="" />
+            </div>
+            <div class="form-group">
+                <label for="itemDescription">Description:</label>
+                <textarea id="itemDescription" class="form-control" name="itemDescription" ng-model="createCtrl.description" rows="3">
+                </textarea>
+            </div>
+            <div class="form-group">
+                <label for="itemPrice">Base Price:</label>
+                <input id="itemPrice" class="form-control" name="itemPrice" ng-model="createCtrl.price" type="number" step=".01" min="0.00" value="0" required="" />
+            </div>
+            <div class="form-group">
+                <label for="itemSalePrice">Sale Price:</label>
+                <input id="itemSalePrice" class="form-control" name="itemSalePrice" ng-model="createCtrl.sale_price" type="number" step=".01" min="0.00" value="0" />
+            </div>
+            <div class="form-group">
+                <label for="itemStock">Stock:</label>
+                <input id="itemStock" class="form-control" name="itemStock" ng-model="createCtrl.stock" type="number" step="1" min="0" value="0" required="" />
+            </div>
+            <input type="submit" ng-click="createCtrl.createItem(itemForm)" value="Add it!" />
+        </form>
+    </div>
+</div>
