@@ -11,7 +11,18 @@
     var hidden = true;
 
     vm.Model = Model;
-    vm.navItems = Model.navItems;
+    vm.navItems = [
+      {
+        sref: 'create',
+        name: 'Add Item',
+        show: Model.username
+      },
+      {
+        sref: 'browse',
+        name: 'Browse',
+        show: true
+      }
+    ];
 
     vm.hidden = isHidden;
     vm.toggleHidden = toggleHidden;

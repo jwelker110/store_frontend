@@ -15,7 +15,7 @@
         <div class="navbar-collapse pull-right" ng-class="{collapse: navCtrl.hidden()}">
             <ul class="nav navbar-nav" ng-click="navCtrl.hidden(true);">
                 <li ng-repeat="link in navCtrl.navItems">
-                    <a ui-sref="{{link.sref}}">{{link.name}}</a>
+                    <a ng-show="link.show" ui-sref="{{link.sref}}">{{link.name}}</a>
                 </li>
                 <li class="dropdown">
                     <a>Category</a>
