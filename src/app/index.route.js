@@ -27,6 +27,12 @@
           controller: 'ItemController',
           controllerAs: 'itemCtrl'
         })
+        .state('create', {
+          url: '/create',
+          templateUrl: 'app/items/create.html',
+          controller: 'CreateController',
+          controllerAs: 'createCtrl'
+        })
         .state('login', {
           url: '/login',
           templateUrl: 'app/user/login.html',
