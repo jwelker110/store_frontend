@@ -15,12 +15,6 @@
 
     var model = {
       appName: "Store App",
-      navItems: [
-        {
-          sref: 'browse',
-          name: 'Browse'
-        }
-      ],
 
       username: null,
       rememberMe: true,
@@ -98,7 +92,7 @@
 
     function getPrevUsers(){
       if (model.userOffset == 0) {return;}
-      getUsers(model.userOffset - model.users.length);
+      getUsers(model.userOffset - 20);
     }
 
     function getUsers(offset){
@@ -123,7 +117,7 @@
 
     function getPrevUsersItems(){
       if (model.usersItemsOffset == 0) {return;}
-      getUsersItems(model.usersItemsOffset - model.usersItems.length);
+      getUsersItems(model.usersItemsOffset - 20);
     }
 
     function getUsersItems(offset){
@@ -172,7 +166,7 @@
 
     function getPrevItems(){
       if (model.itemOffset == 0) {return;}
-      getItems(model.itemOffset - model.items.length);
+      getItems(model.itemOffset - 20);
     }
 
     function getItems(offset){
