@@ -19,7 +19,7 @@
 
     vm.createItem = createItem;
 
-    function createItem() {
+    function createItem(form) {
       var newItem = Item.items.create({
         jwt_token: Model.getJwtString(),
         name: vm.name,
