@@ -11,6 +11,7 @@
     var hidden = true;
 
     vm.Model = Model;
+    vm.appName = "Store App",
     vm.navItems = [
       {
         sref: 'create',
