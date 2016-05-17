@@ -33,6 +33,12 @@
           controller: 'CreateController',
           controllerAs: 'createCtrl'
         })
+        .state('edit', {
+          url: '/items/:itemName/edit',
+          templateUrl: 'app/items/edit.html',
+          controller: 'EditController',
+          controllerAs: 'editCtrl'
+        })
         .state('login', {
           url: '/login',
           templateUrl: 'app/user/login.html',
