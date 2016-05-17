@@ -14,7 +14,6 @@
     var prevPath = '/';
 
     var model = {
-      appName: "Store App",
 
       username: null,
       rememberMe: true,
@@ -49,7 +48,9 @@
 
       getNextItems: getNextItems,
       getPrevItems: getPrevItems,
+      refreshItems: refreshItems,
       setCurrentItem: setCurrentItem,
+      resetCurrentItem: resetCurrentItem,
 
       getNextUsers: getNextUsers,
       getPrevUsers: getPrevUsers,
@@ -184,6 +185,10 @@
 
     }
 
+    function refreshItems(){
+      getItems(model.itemOffset);
+    }
+
     function setCurrentItem(itemName){
       // set up the model with the current item if it isn't set already
       if (model.currentItem && (!model.currentItem.name || model.currentItem.name != itemName)) {
@@ -194,6 +199,19 @@
       item.$promise.then(function(data){
         model.currentItem = data.item;
       });
+    }
+
+    function resetCurrentItem(){
+      model.currentItem = {
+        id: null,
+        name: null,
+        owner_name: null,
+        image_url: null,
+        description: null,
+        price: null,
+        sale_price: null,
+        stock: null
+      }
     }
 
     /**
