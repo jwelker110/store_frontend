@@ -14,6 +14,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="navbar-collapse pull-right" ng-class="{collapse: navCtrl.hidden()}">
             <ul class="nav navbar-nav" ng-click="navCtrl.hidden(true);">
+                <li>
+                    <a ng-show="navCtrl.Model.username" ui-sref="create">Add Item</a>
+                </li>
                 <li ng-repeat="link in navCtrl.navItems">
                     <a ng-show="link.show" ui-sref="{{link.sref}}">{{link.name}}</a>
                 </li>
