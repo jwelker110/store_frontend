@@ -11,5 +11,8 @@
             <li>{{itemCtrl.Model.currentItem.stock}} left</li>
         </ul>
         <p>{{itemCtrl.Model.currentItem.description}}</p>
+        <a ng-show="browseCtrl.Model.username == item.owner_name"
+           href="#/items/{{itemCtrl.Model.currentItem.name}}/edit"
+           class="btn btn-default">Edit</a>
     </div>
 </div>
