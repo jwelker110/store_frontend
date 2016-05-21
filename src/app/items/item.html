@@ -10,6 +10,7 @@
             <li>Sale Price: {{itemCtrl.Model.currentItem.sale_price | currency:"USD $":2}}</li>
             <li>{{itemCtrl.Model.currentItem.stock}} left</li>
         </ul>
+        <a href="#/category/{{itemCtrl.Model.currentItem.category}}">{{itemCtrl.Model.currentItem.category}}</a>
         <p>{{itemCtrl.Model.currentItem.description}}</p>
         <a ng-show="browseCtrl.Model.username == item.owner_name"
            href="#/items/{{itemCtrl.Model.currentItem.name}}/edit"
