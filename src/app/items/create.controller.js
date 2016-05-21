@@ -13,6 +13,7 @@
 
     vm.name = null;
     vm.description = null;
+    vm.category = 'Other';
     vm.price = 0.00;
     vm.sale_price = 0.00;
     vm.stock = 0;
@@ -24,6 +25,7 @@
         jwt_token: Model.getJwtString(),
         name: vm.name,
         description: vm.description,
+        category: vm.category,
         price: vm.price,
         sale_price: vm.sale_price,
         stock: vm.stock
@@ -31,6 +33,7 @@
 
       newItem.$promise.then(function(data){
         // new item was created, let's update the UI / User
+        Model.refreshItems();
         $location.path('/');
       });
     }
