@@ -13,6 +13,9 @@
 
     var prevPath = '/';
 
+    var itemPrevLen = 0;
+    var usersItemsPrevLen = 0;
+
     var model = {
 
       username: null,
@@ -35,10 +38,6 @@
       items: [],
       itemsAvailable: true,
 
-      userOffset: 0,
-      users: [],
-      usersAvailable: true,
-
       usersItemsOffset: 0,
       usersItems: [],
       usersItemsAvailable: true,
@@ -51,9 +50,6 @@
       refreshItems: refreshItems,
       setCurrentItem: setCurrentItem,
       resetCurrentItem: resetCurrentItem,
-
-      getNextUsers: getNextUsers,
-      getPrevUsers: getPrevUsers,
 
       setCurrentUser: setCurrentUser,
       getNextUsersItems: getNextUsersItems,
@@ -77,37 +73,10 @@
     getCategories();
     // get the initial items to display
     getItems(0);
-    // get the initial users to display
-    getUsers(0);
 
     updateUser();
 
     return model;
-
-    /**
-     * User methods
-     */
-    function getNextUsers(){
-      getUsers(model.userOffset + model.users.length);
-    }
-
-    function getPrevUsers(){
-      if (model.userOffset == 0) {return;}
-      getUsers(model.userOffset - 20);
-    }
-
-    function getUsers(offset){
-      var users = User.users.get({offset: offset});
-
-      users.$promise.then(function(data){
-        model.usersAvailable = data.users.length > 0;
-        if (!model.usersAvailable) {
-          // todo toast letting user know no more avail?
-          return;
-        }
-        model.users = data.users;
-      });
-    }
 
     /**
      * User Items methods
@@ -118,7 +87,7 @@
 
     function getPrevUsersItems(){
       if (model.usersItemsOffset == 0) {return;}
-      getUsersItems(model.usersItemsOffset - 20);
+      getUsersItems(model.usersItemsOffset - usersItemsPrevLen);
     }
 
     function getUsersItems(offset){
@@ -132,6 +101,7 @@
         }
         model.usersItems = data.items;
         model.usersItemsOffset = offset;
+        usersItemsPrevLen = model.usersItems.length > usersItemsPrevLen ? model.usersItems.length : usersItemsPrevLen;
       });
     }
 
@@ -159,7 +129,6 @@
 
     /**
      * Item methods
-     * TODO THIS ALL NEEDS WORK TO ALLOW NAVIGATION FORWARD / BACKWARD THROUGH ITEMS
      */
     function getNextItems(){
       getItems(model.itemOffset + model.items.length);
@@ -167,7 +136,7 @@
 
     function getPrevItems(){
       if (model.itemOffset == 0) {return;}
-      getItems(model.itemOffset - 20);
+      getItems(model.itemOffset - itemPrevLen);
     }
 
     function getItems(offset){
@@ -181,6 +150,7 @@
         }
         model.items = data.items;
         model.itemOffset = offset;
+        itemPrevLen = model.items.length > itemPrevLen ? model.items.length : itemPrevLen;
       });
 
     }
