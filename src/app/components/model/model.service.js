@@ -72,8 +72,6 @@
 
     // get the categories to display
     getCategories();
-    // get the initial items to display
-    getItems(0);
 
     updateUser();
 
@@ -117,7 +115,8 @@
       if (cat === model.category) {return;}
       model.itemOffset = 0;
       model.category = cat;
-      getItems();
+      model.items = [];
+      getItems(model.itemOffset);
     }
 
     function getCategories(){
