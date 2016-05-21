@@ -7,7 +7,7 @@
   EditController.$inject = ['$stateParams', '$location', 'Model', 'Item'];
 
   function EditController($stateParams, $location, Model, Item) {
-    if (!Model.username) {
+    if (Model.username != Model.currentItem.owner_name) {
       $location.path('/');
     }
     var vm = this;
@@ -27,6 +27,8 @@
         id: Model.currentItem.id,
         name: Model.currentItem.name,
         description: Model.currentItem.description,
+        category: Model.currentItem.category,
+        image_url: Model.currentItem.image_url,
         price: Model.currentItem.price,
         sale_price: Model.currentItem.sale_price,
         stock: Model.currentItem.stock
