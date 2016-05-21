@@ -30,6 +30,7 @@
         owner_name: null,
         image_url: null,
         description: null,
+        category: null,
         price: null,
         sale_price: null,
         stock: null
@@ -186,6 +187,7 @@
         owner_name: null,
         image_url: null,
         description: null,
+        category: null,
         price: null,
         sale_price: null,
         stock: null
