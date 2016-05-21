@@ -45,13 +45,15 @@
         vm.delete = true;
         return;
       }
-      var item = Item.item.delete({
+      var item = Item.itemDetails.remove({
         jwt_token: Model.getJwtString(),
         name: itemName
       });
 
       item.$promise.then(function(data){
         Model.resetCurrentItem();
+        Model.resetItems();
+        $location.path('/');
       })
       .catch();
     }
