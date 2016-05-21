@@ -34,7 +34,6 @@
         sale_price: null,
         stock: null
       },
-      currentItemMeta: null,
       items: [],
       itemsAvailable: true,
 
@@ -48,6 +47,7 @@
       getNextItems: getNextItems,
       getPrevItems: getPrevItems,
       refreshItems: refreshItems,
+      resetItems: resetItems,
       setCurrentItem: setCurrentItem,
       resetCurrentItem: resetCurrentItem,
 
@@ -157,6 +157,14 @@
 
     function refreshItems(){
       getItems(model.itemOffset);
+    }
+
+    function resetItems(){
+      model.itemOffset = 0;
+      model.items = [];
+      model.itemsAvailable = true;
+      resetCurrentItem();
+      refreshItems();
     }
 
     function setCurrentItem(itemName){
