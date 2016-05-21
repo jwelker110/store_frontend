@@ -30,6 +30,7 @@
               method: 'PUT',
               params: {
                 jwt_token: null,
+                id: null,
                 name: null,
                 description: null,
                 price: null,
