@@ -4,9 +4,9 @@
   angular.module('frontend')
       .controller('CreateController', CreateController);
 
-  CreateController.$inject = ['Item', 'Model'];
+  CreateController.$inject = ['$location', 'Item', 'Model'];
 
-  function CreateController(Item, Model){
+  function CreateController($location, Item, Model){
     var vm = this;
 
     vm.Model = Model;
@@ -31,6 +31,7 @@
 
       newItem.$promise.then(function(data){
         // new item was created, let's update the UI / User
+        $location.path('/');
       });
     }
 
