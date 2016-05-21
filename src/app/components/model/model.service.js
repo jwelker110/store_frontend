@@ -112,7 +112,7 @@
      * Category methods
      */
     function setCategory(cat){
-      if (cat === model.category) {return;}
+      if (cat === model.category && cat) {return;}
       model.itemOffset = 0;
       model.category = cat;
       model.items = [];
