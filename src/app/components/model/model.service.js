@@ -4,9 +4,9 @@
   angular.module('frontend')
       .factory('Model', Model);
 
-  Model.$inject = ['$localStorage', '$sessionStorage', 'jwtHelper', 'Item', 'User', 'Category'];
+  Model.$inject = ['$localStorage', '$sessionStorage', '$location', 'jwtHelper', 'Item', 'User', 'Category'];
 
-  function Model($localStorage, $sessionStorage, jwtHelper, Item, User, Category) {
+  function Model($localStorage, $sessionStorage, $location, jwtHelper, Item, User, Category) {
     var storage = $localStorage.$default({
       jwt_token_string: null
     });
@@ -175,6 +175,10 @@
       var item = Item.itemDetails.get({name: itemName});
 
       item.$promise.then(function(data){
+        if (!data.item) {
+          resetCurrentItem();
+          $location.path('/');
+        }
         model.currentItem = data.item;
       });
     }
