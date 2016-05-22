@@ -22,7 +22,6 @@
     vm.createItem = createItem;
 
     function createItem(form) {
-      uploadImage();
       var newItem = Item.items.create({
         jwt_token: Model.getJwtString(),
         name: vm.name,
@@ -30,7 +29,8 @@
         category: vm.category,
         price: vm.price,
         sale_price: vm.sale_price,
-        stock: vm.stock
+        stock: vm.stock,
+        image: vm.itemFile
       });
 
       newItem.$promise.then(function(data){
@@ -39,19 +39,6 @@
         $location.path('/');
       });
     }
-
-    function uploadImage(){
-      var newImage = Item.itemImage.uploadImage({
-        jwt_token: Model.getJwtString(),
-        name: vm.name,
-        image: vm.itemFile
-      });
-
-      newImage.$promise.then(function(data){
-        console.log(data);
-      });
-    }
-
   }
 
 })();
