@@ -9,7 +9,6 @@
   function FileInput(){
     return {
       restrict: 'A',
-      transclude: true,
       scope: {
         itemFile: '=fileInput'
       },
