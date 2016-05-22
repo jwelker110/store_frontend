@@ -24,6 +24,27 @@
               }
             }
           }),
+      itemImage: $resource('http://localhost:8080/api/v1/items/image', {},
+          {
+            uploadImage: {
+              method: 'POST',
+              params: {
+                jwt_token: null,
+                name: null,
+                image: null
+              },
+              headers: {
+                'Content-Type': undefined
+              },
+              transformRequest: function(data){
+                var fd = new FormData();
+                for (var key in data) {
+                  fd.append(key, data[key]);
+                }
+                return fd;
+              }
+            }
+          }),
       itemDetails: $resource('http://localhost:8080/api/v1/items/details.json', {name: null},
           {
             update: {
