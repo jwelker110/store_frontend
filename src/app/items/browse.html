@@ -6,7 +6,7 @@
 <div class="row">
     <!-- each item now -->
     <div class="col-xs-6 col-sm-4 col-md-3 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.name);">
-        <img ng-src="{{item.image_url}}"/>
+        <img ng-src="http://localhost:8080/{{item.image_url}}"/>
         <h4>{{item.name}}</h4>
         <h6><em>{{item.owner_name}}</em></h6>
         <p>{{item.category}}</p>
