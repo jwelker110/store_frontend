@@ -20,22 +20,13 @@
                 price: null,
                 sale_price: null,
                 image_url: null,
-                stock: null
-              }
-            }
-          }),
-      itemImage: $resource('http://localhost:8080/api/v1/items/image', {},
-          {
-            uploadImage: {
-              method: 'POST',
-              params: {
-                jwt_token: null,
-                name: null,
+                stock: null,
                 image: null
               },
               headers: {
                 'Content-Type': undefined
               },
+              // creating a form data object because we need to pass the file if given
               transformRequest: function(data){
                 var fd = new FormData();
                 for (var key in data) {
