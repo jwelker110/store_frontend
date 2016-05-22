@@ -4,19 +4,21 @@
   angular.module('frontend')
       .directive('fileInput', FileInput);
 
-  FileInput.$inject = ['$parse'];
+  FileInput.$inject = [];
 
-  function FileInput($parse){
+  function FileInput(){
     return {
       restrict: 'A',
+      transclude: true,
+      scope: {
+        itemFile: '=fileInput'
+      },
       link: function(scope, elm, attrs){
-        var model = $parse(attrs.fileInput);
-        var modelSetter = model.assign;
         elm.bind('change', function(){
           scope.$apply(function(){
-            modelSetter(scope.createCtrl, elm[0].files[0]);
-          })
-        })
+            scope.itemFile = elm[0].files[0];
+          });
+        });
       }
     };
   }
