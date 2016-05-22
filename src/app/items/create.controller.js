@@ -17,10 +17,12 @@
     vm.price = 0.00;
     vm.sale_price = 0.00;
     vm.stock = 0;
+    vm.itemFile = null;
 
     vm.createItem = createItem;
 
     function createItem(form) {
+      uploadImage();
       var newItem = Item.items.create({
         jwt_token: Model.getJwtString(),
         name: vm.name,
@@ -35,6 +37,18 @@
         // new item was created, let's update the UI / User
         Model.refreshItems();
         $location.path('/');
+      });
+    }
+
+    function uploadImage(){
+      var newImage = Item.itemImage.uploadImage({
+        jwt_token: Model.getJwtString(),
+        name: vm.name,
+        image: vm.itemFile
+      });
+
+      newImage.$promise.then(function(data){
+        console.log(data);
       });
     }
 
