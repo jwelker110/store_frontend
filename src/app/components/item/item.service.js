@@ -19,8 +19,42 @@
                 description: null,
                 price: null,
                 sale_price: null,
-                image_url: null,
                 stock: null,
+                image: null
+              }
+            }
+          }),
+      itemDetails: $resource('http://localhost:8080/api/v1/items/details.json', {name: null},
+          {
+            update: {
+              method: 'PUT',
+              params: {
+                jwt_token: null,
+                id: null,
+                name: null,
+                description: null,
+                category: null,
+                price: null,
+                sale_price: null,
+                image: null,
+                stock: null
+              }
+            },
+            remove: {
+              method: 'POST',
+              params: {
+                jwt_token: null,
+                itemName: null
+              }
+            }
+          }),
+      itemImage: $resource('http://localhost:8080/api/v1/items/image', {},
+          {
+            update: {
+              method: 'PUT',
+              params: {
+                jwt_token: null,
+                name: null,
                 image: null
               },
               headers: {
@@ -34,28 +68,23 @@
                 }
                 return fd;
               }
-            }
-          }),
-      itemDetails: $resource('http://localhost:8080/api/v1/items/details.json', {name: null},
-          {
-            update: {
+            },
+            remove: {
               method: 'PUT',
               params: {
                 jwt_token: null,
-                id: null,
-                name: null,
-                description: null,
-                price: null,
-                sale_price: null,
-                image_url: null,
-                stock: null
-              }
-            },
-            remove: {
-              method: 'POST',
-              params: {
-                jwt_token: null,
-                itemName: null
+                name: null
+              },
+              headers: {
+                'Content-Type': undefined
+              },
+              // creating a form data object because we need to pass the file if given
+              transformRequest: function(data){
+                var fd = new FormData();
+                for (var key in data) {
+                  fd.append(key, data[key]);
+                }
+                return fd;
               }
             }
           })
