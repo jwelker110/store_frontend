@@ -29,14 +29,26 @@
         category: vm.category,
         price: vm.price,
         sale_price: vm.sale_price,
-        stock: vm.stock,
-        image: vm.itemFile
+        stock: vm.stock
       });
 
       newItem.$promise.then(function(data){
-        // new item was created, let's update the UI / User
-        Model.refreshItems();
-        $location.path('/');
+        if (vm.itemFile) {
+          var itemImage = Item.itemImage.update({
+            jwt_token: Model.getJwtString(),
+            name: vm.name,
+            image: vm.itemFile
+          });
+
+          itemImage.$promise.then(function(data){
+            Model.refreshItems();
+            $location.path('/');
+          });
+
+        } else {
+          Model.refreshItems();
+          $location.path('/');
+        }
       });
     }
   }
