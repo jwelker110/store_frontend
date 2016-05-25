@@ -36,7 +36,6 @@
                 category: null,
                 price: null,
                 sale_price: null,
-                image: null,
                 stock: null
               }
             },
