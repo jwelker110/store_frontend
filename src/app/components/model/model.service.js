@@ -4,9 +4,9 @@
   angular.module('frontend')
       .factory('Model', Model);
 
-  Model.$inject = ['$localStorage', '$sessionStorage', '$location', 'jwtHelper', 'Item', 'User', 'Category'];
+  Model.$inject = ['$localStorage', '$sessionStorage', '$location', 'jwtHelper', 'Auth', 'Item', 'User', 'Category'];
 
-  function Model($localStorage, $sessionStorage, $location, jwtHelper, Item, User, Category) {
+  function Model($localStorage, $sessionStorage, $location, jwtHelper, Auth, Item, User, Category) {
     var storage = $localStorage.$default({
       jwt_token_string: null
     });
@@ -19,7 +19,6 @@
     var model = {
 
       username: null,
-      rememberMe: true,
 
       category: null,
 
@@ -226,27 +225,45 @@
     }
 
     function updateUser(){
-      if (!storage.jwt_token_string) {
+      var jwt = getJwtString();
+      if (!jwt) {
         resetUserInfo();
         return;
       }
-      var exp = jwtHelper.isTokenExpired(storage.jwt_token_string);
+      var exp = jwtHelper.isTokenExpired(jwt);
       if (exp) {
         resetUserInfo();
         return;
       }
-      var payload = jwtHelper.decodeToken(storage.jwt_token_string);
 
-      model.username = payload.username;
+      var newToken = Auth.reauth.refresh({
+        jwt_token: getJwtString()
+      });
+
+      newToken.$promise
+          .then(function(data){
+            setJwtString(data.jwt_token);
+
+            var payload = jwtHelper.decodeToken(getJwtString());
+
+            model.username = payload.username;
+          })
+          .catch(function(data){
+
+          });
+
     }
 
     function resetUserInfo(){
       model.username = null;
-      storage.jwt_token_string = null;
+      setJwtString(null);
     }
 
-    function setStorageType(){
-      if (!model.rememberMe) {
+    /**
+     * Method to set the storage type determined by the value of rememberMe
+     */
+    function setStorageType(rememberMe){
+      if (!rememberMe) {
         storage = $sessionStorage.$default({
           jwt_token_string: null
         });
