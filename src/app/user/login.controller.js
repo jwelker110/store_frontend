@@ -71,7 +71,6 @@
     }
 
     function goauthLoginFinish(rememberMe){
-      Model.rememberMe = rememberMe;
 
       // gotta verify the token we received from user consent
       var verify = Auth.goauthVerify.submit({access_token: args['access_token']});
@@ -98,7 +97,7 @@
 
         // once we have a response we can log the user in with the JWT returned
         goauth.$promise.then(function(data){
-          Model.setStorageType();
+          Model.setStorageType(rememberMe);
           Model.setJwtString(data.jwt_token);
           Model.updateUser();
 
