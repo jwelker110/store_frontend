@@ -34,11 +34,13 @@
                 <input id="itemStock" class="form-control" name="itemStock" ng-model="editCtrl.Model.currentItem.stock" type="number" step="1" min="0" value="0" required="" />
             </div>
             <div class="form-group">
-                <label for="itemImage">Item Image:</label>
-                <input id="itemImage" class="form-control" name="itemImage" ng-model="editCtrl.Model.currentItem.image_url" type="file"/>
+                <label for="itemAvatarUrl">Item Image:</label>
+                <img ng-src="{{editCtrl.Model.currentItem.image_url}}"/>
+                <input class="btn btn-default" type="button" ng-click="editCtrl.deleteImage()" value="{{editCtrl.imageDelete ? 'Sure?' : 'Delete image'}}" />
+                <input id="itemAvatarUrl" name="itemAvatarUrl" file-input="editCtrl.itemFile" type="file" accept="image/png,image/jpeg" />
             </div>
-            <input class="btn btn-default" type="submit" ng-click="editCtrl.updateItem(itemForm)" value="Save changes" />
-            <input class="btn btn-default" type="button" ng-click="editCtrl.deleteItem(itemForm)" value="{{editCtrl.delete ? 'Sure?' : 'Delete item'}}" />
+            <input class="btn btn-default" type="submit" ng-click="editCtrl.updateItem()" value="Save changes" />
+            <input class="btn btn-default" type="button" ng-click="editCtrl.deleteItem()" value="{{editCtrl.delete ? 'Sure?' : 'Delete item'}}" />
         </form>
     </div>
 </div>
