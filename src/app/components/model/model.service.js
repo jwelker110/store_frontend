@@ -51,6 +51,7 @@
       resetItems: resetItems,
       setCurrentItem: setCurrentItem,
       resetCurrentItem: resetCurrentItem,
+      refreshCurrentItem: refreshCurrentItem,
 
       setCurrentUser: setCurrentUser,
       getNextUsersItems: getNextUsersItems,
@@ -181,6 +182,11 @@
         }
         model.currentItem = data.item;
       });
+    }
+
+    function refreshCurrentItem(){
+      if (!Model.currentItem || !Model.currentItem.name) {return;}
+      Model.setCurrentItem(Model.currentItem.name);
     }
 
     function resetCurrentItem(){
