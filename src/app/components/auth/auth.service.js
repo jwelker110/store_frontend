@@ -11,7 +11,7 @@
     return {
       reauth: $resource('http://localhost:8080/reauth', {},
           {
-            submit: {
+            refresh: {
               method: 'POST',
               params: {
                 jwt_token: null
