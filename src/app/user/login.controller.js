@@ -71,42 +71,15 @@
     }
 
     function goauthLoginFinish(rememberMe){
+      var goauth = Auth.goauth.submit({access_token: args['access_token']});
 
-      // gotta verify the token we received from user consent
-      var verify = Auth.goauthVerify.submit({access_token: args['access_token']});
+      goauth.$promise.then(function(data){
+        Model.setStorageType(rememberMe);
+        Model.setJwtString(data.jwt_token);
+        Model.updateUser();
 
-      // once the result is returned we can proceed to register/login user
-      verify.$promise.then(function(data){
-        var audience = data.aud;
-        if (audience != client_id) { // the token has been tampered with?
-          console.log('audience mismatch');
-          // todo warn the user?
-          return;
-        }
-        // necessary info
-        var email = data.email;
-        var oa_id = data.sub;
-        var username = data.email.split('@')[0];
-
-        // send it to the server
-        var goauth = Auth.goauth.submit({
-          email: email,
-          oa_id: oa_id,
-          username: username
-        });
-
-        // once we have a response we can log the user in with the JWT returned
-        goauth.$promise.then(function(data){
-          Model.setStorageType(rememberMe);
-          Model.setJwtString(data.jwt_token);
-          Model.updateUser();
-
-          $location.path(args['state'] ? args['state'] : '/');
-        });
-
-      }, function(data){
-        console.log(data);
-      }); // todo handle this
+        $location.path(args['state'] ? args['state'] : '/');
+      });
     }
 
   }
