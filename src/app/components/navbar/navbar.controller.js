@@ -26,6 +26,10 @@
     vm.login = login;
     vm.logout = logout;
 
+    /**
+     * Sets the prevPath so we know where to go after logging in,
+     * and sets the location to the path associated with user login.
+     */
     function login(){
       Model.setPrevPath($location.path());
       $location.path('/login');
@@ -39,10 +43,17 @@
       $location.path('/');
     }
 
-    function isHidden(newVal){
-      return newVal ? hidden = newVal : hidden;
+    /**
+     * Getter for the variable associated with the navbar collapse
+     * @returns {boolean}
+     */
+    function isHidden(){
+      return hidden;
     }
 
+    /**
+     * Toggles the var associated with the navbar collapse
+     */
     function toggleHidden(){
       hidden = !hidden;
     }

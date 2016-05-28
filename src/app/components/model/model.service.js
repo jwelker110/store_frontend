@@ -78,17 +78,27 @@
     return model;
 
     /**
-     * User Items methods
+     * Calls getUsersItems and passes in the desired offset
+     * to retrieve the next page of items associated with the user.
      */
     function getNextUsersItems(){
       getUsersItems(model.usersItemsOffset + model.usersItems.length);
     }
 
+    /**
+     * Calls getUsersItems and passes in the desired offset
+     * to retrieve previous pages of items associated with the user.
+     */
     function getPrevUsersItems(){
       if (model.usersItemsOffset == 0) {return;}
       getUsersItems(model.usersItemsOffset - usersItemsPrevLen);
     }
 
+    /**
+     * Utilizes the User resource to retrieve items associated
+     * with the currently signed-in user.
+     * @param offset {int} - Offset to begin retrieval from.
+     */
     function getUsersItems(offset){
       var usersItems = User.usersItems.get({offset: offset, username: model.currentUser});
 
@@ -104,12 +114,18 @@
       });
     }
 
+    /**
+     * Set the current user for this instance of the application.
+     * @param username {string} - Username to associate with this user.
+     */
     function setCurrentUser(username){
       model.currentUser = username;
     }
 
     /**
-     * Category methods
+     * Set the current category. If this is a category not currently set,
+     * reset the offset and currently available items.
+     * @param cat {string} - Desired category
      */
     function setCategory(cat){
       if (cat === model.category && cat) {return;}
@@ -119,6 +135,10 @@
       getItems(model.itemOffset);
     }
 
+    /**
+     * Retrieve the available categories using the
+     * Category resource.
+     */
     function getCategories(){
       var cat = Category.categories.get();
 
@@ -128,17 +148,27 @@
     }
 
     /**
-     * Item methods
+     * Calls getItems and passes in the desired offset
+     * to retrieve the next page of items.
      */
     function getNextItems(){
       getItems(model.itemOffset + model.items.length);
     }
 
+    /**
+     * Calls getItems and passes in the desired offset
+     * to retrieve the previous page of items.
+     */
     function getPrevItems(){
       if (model.itemOffset == 0) {return;}
       getItems(model.itemOffset - itemPrevLen);
     }
 
+    /**
+     * Utilizes the Item resource to retrieve a list of items associated
+     * with the current category, if set, and using the desired offset.
+     * @param offset {int} - The offset to begin retrieval from.
+     */
     function getItems(offset){
       var items = Item.items.get({offset: offset, category: model.category});
 
@@ -155,10 +185,16 @@
 
     }
 
+    /**
+     * Refreshes the current items to reflect any changes to them.
+     */
     function refreshItems(){
       getItems(model.itemOffset);
     }
 
+    /**
+     * Retrieve the default items viewed when application is initialized.
+     */
     function resetItems(){
       model.itemOffset = 0;
       model.items = [];
@@ -167,6 +203,10 @@
       refreshItems();
     }
 
+    /**
+     * Set the currently viewed item on the Model.
+     * @param itemName {string} - The name of the item we wish to set as the current item.
+     */
     function setCurrentItem(itemName){
       // set up the model with the current item if it isn't set already
       if (model.currentItem && (!model.currentItem.name || model.currentItem.name != itemName)) {
@@ -183,11 +223,17 @@
       });
     }
 
+    /**
+     * Updates the current item to reflect any changes made by editing it.
+     */
     function refreshCurrentItem(){
       if (!Model.currentItem || !Model.currentItem.name) {return;}
       Model.setCurrentItem(Model.currentItem.name);
     }
 
+    /**
+     * Removes the current item from the Model.
+     */
     function resetCurrentItem(){
       model.currentItem = {
         id: null,
@@ -203,27 +249,40 @@
     }
 
     /**
-     * URL set/get
+     * Setter for prevPath
+     * @param path {string} - The desired path
      */
     function setPrevPath(path){
       prevPath = path;
     }
 
+    /**
+     * Getter for prevPath
+     * @returns {string} - The value of the previously visited path
+     */
     function getPrevPath(){
       return prevPath;
     }
 
     /**
-     * JWT methods
+     * Getter for the JWT stored in local/session storage.
      */
     function getJwtString(){
       return storage.jwt_token_string;
     }
 
+    /**
+     * Setter for the JWT stored in local/session storage.
+     * @param jwt {string} - The JSON Web Token
+     */
     function setJwtString(jwt){
       storage.jwt_token_string = jwt;
     }
 
+    /**
+     * Refresh the values associated with the current user. If the
+     * JWT token is expired, it is removed from local/session storage.
+     */
     function updateUser(){
       var jwt = getJwtString();
       if (!jwt) {
@@ -254,13 +313,18 @@
 
     }
 
+    /**
+     * Remove the values associated with the current user. Remove
+     * the JWT token from local/session storage.
+     */
     function resetUserInfo(){
       model.username = null;
       setJwtString(null);
     }
 
     /**
-     * Method to set the storage type determined by the value of rememberMe
+     * Set the desired storage type for storing the JWT.
+     * @param rememberMe {boolean} - True for local storage, false for session storage.
      */
     function setStorageType(rememberMe){
       if (!rememberMe) {
