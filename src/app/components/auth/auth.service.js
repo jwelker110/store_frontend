@@ -9,6 +9,9 @@
   function Auth($resource){
 
     return {
+      /**
+       * Resource for refreshing JWT tokens
+       */
       reauth: $resource('http://localhost:8080/reauth', {},
           {
             refresh: {
@@ -18,23 +21,15 @@
               }
             }
           }),
-      goauthVerify: $resource('https://www.googleapis.com/oauth2/v3/tokeninfo', {},
-          {
-            submit: {
-              method: 'GET',
-              params: {
-                access_token: null
-              }
-            }
-          }),
+      /**
+       * Resource to login/signup the user after their OAuth token has been confirmed.
+       */
       goauth: $resource('http://localhost:8080/goauth', {},
           {
             submit: {
               method: 'POST',
               params: {
-                email: null,
-                oa_id: null,
-                username: null
+                access_token: null
               }
             }
           })
