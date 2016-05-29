@@ -19,14 +19,26 @@
     vm.prevItems = prevItems;
     vm.nextItems = nextItems;
 
+    /**
+     * Using the item name, redirects the user to the item
+     * detail view.
+     * @param itemName {any} - Name of the item.
+     */
     function viewItem(itemName) {
       $location.url('/items/' + itemName);
     }
 
+    /**
+     * Calling the model method to set current category
+     * @param categoryName {string} - Name of the category.
+     */
     function setCategory(categoryName) {
       Model.setCategory(categoryName);
     }
 
+    /**
+     * Calling the model methods to retrieve items.
+     */
     function prevItems(){
       Model.getPrevItems();
     }

@@ -20,7 +20,9 @@
     vm.deleteItem = deleteItem;
     vm.deleteImage = deleteImage;
 
-
+    /**
+     * Utilizes the Item resource to update the current item's details.
+     */
     function updateItem() {
       var item = Item.itemDetails.update({
         jwt_token: Model.getJwtString(),
@@ -33,28 +35,41 @@
         stock: Model.currentItem.stock
       });
 
-      item.$promise.then(function(data){
-          if (vm.itemFile) {
-            var itemImage = Item.itemImage.update({
-              jwt_token: Model.getJwtString(),
-              name: Model.currentItem.name,
-              image: vm.itemFile
-            });
-
-            itemImage.$promise.then(function(data){
-              Model.refreshItems();
-              $location.path('/');
-            });
-
-          } else {
-            Model.refreshItems();
-            $location.path('/');
-          }
-      })
+      item.$promise.then(updateItemSuccess)
       .catch();
 
     }
 
+    /**
+     * Checks whether an image has been attached to the form and
+     * utilizes the Item resource to attempt to upload the image
+     */
+    function updateItemSuccess(){
+      if (vm.itemFile) { // TODO check image size
+        var itemImage = Item.itemImage.update({
+          jwt_token: Model.getJwtString(),
+          name: Model.currentItem.name,
+          image: vm.itemFile
+        });
+
+        itemImage.$promise.then(uploadImageSuccess());
+
+      } else {
+        uploadImageSuccess();
+      }
+    }
+
+    /**
+     * Updates items and redirects user to homepage
+     */
+    function uploadImageSuccess(){
+      Model.refreshItems();
+      $location.path('/');
+    }
+
+    /**
+     * Utilizes the Item resource to remove the current item.
+     */
     function deleteItem() {
       if (!vm.delete) {
         vm.delete = true;
@@ -65,14 +80,13 @@
         name: itemName
       });
 
-      item.$promise.then(function(data){
-        Model.resetCurrentItem();
-        Model.resetItems();
-        $location.path('/');
-      })
-      .catch();
+      item.$promise.then(itemDeleteSuccess);
     }
 
+    /**
+     * Utilizes the Item resource to remove the current item's image
+     * and replace it with the default image.
+     */
     function deleteImage(){
       if (!vm.imageDelete) {
         vm.imageDelete = true;
@@ -83,10 +97,16 @@
         name: itemName
       });
 
-      image.$promise.then(function(data){
-        Model.refreshItems();
-        $location.path('/');
-      });
+      image.$promise.then(itemDeleteSuccess);
+    }
+
+    /**
+     * Resets the current items and redirects to the homepage
+     */
+    function itemDeleteSuccess(){
+      Model.resetCurrentItem();
+      Model.resetItems();
+      $location.path('/');
     }
 
   }

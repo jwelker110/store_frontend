@@ -8,14 +8,13 @@
   ItemController.$inject = ['$stateParams', 'Model'];
 
   function ItemController($stateParams, Model){
+    // Not much is done here just let the user view the item
     var vm = this;
+    var itemName = $stateParams.itemName;
 
     vm.Model = Model;
 
-    vm.itemId = $stateParams.itemId;
-    vm.itemName = $stateParams.itemName;
-
-    Model.setCurrentItem(vm.itemName);
+    Model.setCurrentItem(itemName);
 
   }
 

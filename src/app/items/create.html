@@ -17,13 +17,12 @@
                 <label for="itemCategory">Category:</label>
                 <select class="form-control" id="itemCategory" name="itemCategory" ng-model="createCtrl.category">
                     <option ng-repeat="cat in createCtrl.Model.categories"
-                            value="{{cat.name}}"
-                            ng-selected="cat.name == createCtrl.category">{{cat.name}}</option>
+                            value="{{cat.name}}">{{cat.name}}</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="itemPrice">Base Price:</label>
-                <input id="itemPrice" class="form-control" name="itemPrice" ng-model="createCtrl.price" type="number" step=".01" min="0.00" value="0" required="" />
+                <input id="itemPrice" class="form-control" name="itemPrice" ng-model="createCtrl.price" type="number" step=".01" min="0.00" value="0" />
             </div>
             <div class="form-group">
                 <label for="itemSalePrice">Sale Price:</label>
@@ -34,7 +33,7 @@
                 <input id="itemStock" class="form-control" name="itemStock" ng-model="createCtrl.stock" type="number" step="1" min="0" value="0" required="" />
             </div>
             <div class="form-group">
-                <label for="itemAvatarUrl">Item Image:</label>
+                <label for="itemAvatarUrl">Item Image (&lt; 500 KB):</label>
                 <input id="itemAvatarUrl" name="itemAvatarUrl" file-input="createCtrl.itemFile" type="file" accept="image/png,image/jpeg" />
             </div>
             <input class="btn btn-default" type="submit" ng-click="createCtrl.createItem(itemForm)" value="Add it!" />

@@ -34,7 +34,7 @@
                 <input id="itemStock" class="form-control" name="itemStock" ng-model="editCtrl.Model.currentItem.stock" type="number" step="1" min="0" value="0" required="" />
             </div>
             <div class="form-group">
-                <label for="itemAvatarUrl">Item Image:</label>
+                <label for="itemAvatarUrl">Item Image (&lt; 500 KB):</label>
                 <img ng-src="{{editCtrl.Model.currentItem.image_url}}"/>
                 <input class="btn btn-default" type="button" ng-click="editCtrl.deleteImage()" value="{{editCtrl.imageDelete ? 'Sure?' : 'Delete image'}}" />
                 <input id="itemAvatarUrl" name="itemAvatarUrl" file-input="editCtrl.itemFile" type="file" accept="image/png,image/jpeg" />
