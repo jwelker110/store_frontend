@@ -5,12 +5,10 @@
 </div>
 <div class="row">
     <!-- each item now -->
-    <div class="col-xs-6 col-sm-4 col-md-3 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.name);">
+    <div class="col-md-3 col-sm-4 col-xs-6 item" ng-repeat="item in browseCtrl.Model.items" ng-click="browseCtrl.viewItem(item.name);">
         <img ng-src="{{item.image_url}}"/>
         <h4>{{item.name}}</h4>
-        <h6><em>{{item.owner_name}}</em></h6>
         <p>{{item.category}}</p>
-        <p>{{item.description}}</p>
         <a ng-show="browseCtrl.Model.username == item.owner_name" href="#/items/{{item.name}}/edit" class="btn btn-default">Edit</a>
     </div>
 </div>
