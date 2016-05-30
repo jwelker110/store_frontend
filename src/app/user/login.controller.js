@@ -16,7 +16,6 @@
 
     vm.Model = Model;
 
-    vm.begin = false;
     vm.finish = false;
 
     vm.goauthLogin = goauthLogin;
@@ -27,9 +26,10 @@
       $location.path(args['state']);
     } else if (args['access_token']) {
       vm.finish = true;
+    } else {
+      goauthLogin();
     }
 
-    vm.begin = !vm.finish;
 
     /**
      * Parse arguments that are specified in the hash portion of url after OAuth request
