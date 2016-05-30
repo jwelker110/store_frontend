@@ -12,8 +12,8 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="navbar-collapse pull-right" ng-class="{collapse: navCtrl.hidden()}">
-            <ul class="nav navbar-nav" ng-click="navCtrl.hidden(true);">
+        <div class="navbar-collapse pull-right" ng-class="{collapse: navCtrl.isHidden()}">
+            <ul class="nav navbar-nav" ng-click="navCtrl.isHidden(true);">
                 <li>
                     <a ng-show="navCtrl.Model.username" ui-sref="create">Add Item</a>
                 </li>

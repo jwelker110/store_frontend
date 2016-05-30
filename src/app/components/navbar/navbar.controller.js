@@ -20,7 +20,7 @@
       }
     ];
 
-    vm.hidden = isHidden;
+    vm.isHidden = isHidden;
     vm.toggleHidden = toggleHidden;
 
     vm.login = login;
@@ -47,8 +47,8 @@
      * Getter for the variable associated with the navbar collapse
      * @returns {boolean}
      */
-    function isHidden(){
-      return hidden;
+    function isHidden(val){
+      return val ? hidden = val : hidden;
     }
 
     /**
