@@ -128,7 +128,7 @@
      * @param cat {string} - Desired category
      */
     function setCategory(cat){
-      if (cat === model.category && cat) {return;}
+      if (cat === model.category && model.items.length > 0) {return;}
       model.itemOffset = 0;
       model.category = cat;
       model.items = [];
