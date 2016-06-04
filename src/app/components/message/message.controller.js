@@ -11,6 +11,8 @@
 
     vm.Message = Message;
 
+    vm.removeMessage = removeMessage;
+
     function removeMessage(id){
       Message.removeMessage(id);
     }
