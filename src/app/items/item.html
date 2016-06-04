@@ -1,24 +1,40 @@
 <div class="row" ng-show="itemCtrl.Model.currentItem">
+    <div class="col-sm-12">
+        <header class="page-title">
+            <h1 class="item-name">{{itemCtrl.Model.currentItem.name}}
+                <small>(<a href="#/category/{{itemCtrl.Model.currentItem.category}}">{{itemCtrl.Model.currentItem.category}}</a>)
+                    <a class="btn-edit-inverse" title="Edit" ng-show="itemCtrl.Model.username == itemCtrl.Model.currentItem.owner_name" href="#/items/{{itemCtrl.Model.currentItem.name}}/edit">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </small>
+            </h1>
+        </header>
+    </div>
     <div class="col-sm-6">
         <figure class="item-image-details">
             <img class="item-image" ng-src="{{itemCtrl.Model.currentItem.image_url}}"/>
-            <figcaption class="item-image-caption">{{itemCtrl.Model.currentItem.owner_name}} added this item.</figcaption>
+            <figcaption class="item-image-caption">
+                {{itemCtrl.Model.currentItem.owner_name == itemCtrl.Model.username ? 'You added this item.' : itemCtrl.Model.currentItem.owner_name + 'added this item.'}}</figcaption>
         </figure>
     </div>
     <div class="col-sm-6">
-        <h1 class="item-name">{{itemCtrl.Model.currentItem.name}} <br><small><a href="#/category/{{itemCtrl.Model.currentItem.category}}">{{itemCtrl.Model.currentItem.category}}</a></small></h1>
         <ul class="item-detail-list">
-            <li>Price: {{itemCtrl.Model.currentItem.price | currency:"USD $":2}}</li>
-            <li ng-show="itemCtrl.Model.currentItem.sale_price > 0">Sale Price: {{itemCtrl.Model.currentItem.sale_price | currency:"USD $":2}}</li>
+            <li><strong>Price:</strong> {{itemCtrl.Model.currentItem.price | currency:"USD $":2}}</li>
+            <li ng-show="itemCtrl.Model.currentItem.sale_price > 0"><strong>Sale Price:</strong> {{itemCtrl.Model.currentItem.sale_price | currency:"USD $":2}}</li>
             <li ng-show="itemCtrl.Model.currentItem.stock > 0">{{itemCtrl.Model.currentItem.stock}} in stock</li>
             <li ng-show="itemCtrl.Model.currentItem.stock == 0"><em>Out of stock.</em></li>
         </ul>
         <aside class="item-description">
-            <b>Description: </b>
+            <strong>Description: </strong>
             <p>{{itemCtrl.Model.currentItem.description}}</p>
         </aside>
         <a ng-show="itemCtrl.Model.username == itemCtrl.Model.currentItem.owner_name"
            href="#/items/{{itemCtrl.Model.currentItem.name}}/edit"
            class="btn btn-default">Edit</a>
+    </div>
+    <div class="col-sm-12">
+        <footer class="page-footer">
+            &copy; <a href="https://github.com/jwelker110">Jon Welker</a> 2016
+        </footer>
     </div>
 </div>

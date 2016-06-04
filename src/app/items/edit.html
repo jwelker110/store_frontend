@@ -9,6 +9,7 @@
             <div class="form-group">
                 <label>*Name ({{30 - editCtrl.Model.currentItem.name.length}} chars):</label>
                 <input class="form-control" name="itemName" ng-model="editCtrl.Model.currentItem.name" type="text" maxlength="30" required />
+                <div class="msg-invalid" ng-show="itemForm.$submitted && itemForm.itemName.$invalid">Please enter a name</div>
             </div>
             <div class="form-group">
                 <label>Description ({{250 - editCtrl.Model.currentItem.description.length}} chars):</label>
@@ -17,11 +18,12 @@
             </div>
             <div class="form-group">
                 <label>*Category:</label>
-                <select class="form-control" ng-model="editCtrl.Model.currentItem.category">
+                <select class="form-control" name="itemCategory" ng-model="editCtrl.Model.currentItem.category">
                     <option ng-repeat="cat in editCtrl.Model.categories"
                             value="{{cat.name}}"
                             ng-selected="cat.name == editCtrl.Model.currentItem.category">{{cat.name}}</option>
                 </select>
+                <div class="msg-invalid" ng-show="itemForm.$submitted && itemForm.itemCategory.$invalid">Please select a category</div>
             </div>
             <div class="form-group">
                 <label>*Base Price:</label>
@@ -42,7 +44,7 @@
                 <input name="itemAvatarUrl" file-input="editCtrl.itemFile" type="file" accept="image/png,image/jpeg" />
             </div>
             <div class="text-center">
-                <input class="btn btn-success" type="submit" ng-click="editCtrl.updateItem()" value="Save changes" />
+                <input class="btn btn-success" type="submit" ng-click="editCtrl.updateItem(itemForm)" value="Save changes" />
                 <input class="btn btn-danger" type="button" ng-click="editCtrl.deleteItem()" value="{{editCtrl.delete ? 'Sure?' : 'Delete item'}}" />
             </div>
         </form>

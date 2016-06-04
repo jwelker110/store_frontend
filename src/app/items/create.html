@@ -8,7 +8,8 @@
         <form name="itemForm" class="form-centered" novalidate>
             <div class="form-group">
                 <label>*Name ({{30 - createCtrl.name.length}} chars):</label>
-                <input class="form-control" name="itemName" ng-model="createCtrl.name" type="text" required maxlength="30" />
+                <input class="form-control" name="itemName" ng-model="createCtrl.name" type="text" maxlength="30" required />
+                <div class="msg-invalid" ng-show="itemForm.$submitted && itemForm.itemName.$invalid">Please enter a name</div>
             </div>
             <div class="form-group">
                 <label>Description ({{250 - createCtrl.description.length}} chars):</label>
@@ -21,6 +22,7 @@
                     <option ng-repeat="cat in createCtrl.Model.categories"
                             value="{{cat.name}}">{{cat.name}}</option>
                 </select>
+                <div class="msg-invalid" ng-show="itemForm.$submitted && itemForm.itemCategory.$invalid">Please select a category</div>
             </div>
             <div class="form-group">
                 <label>*Base Price:</label>

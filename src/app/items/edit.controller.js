@@ -25,7 +25,10 @@
     /**
      * Utilizes the Item resource to update the current item's details.
      */
-    function updateItem() {
+    function updateItem(form) {
+      if (form.$invalid) {
+        return;
+      }
       var item = Item.itemDetails.update({
         jwt_token: Model.getJwtString(),
         id: Model.currentItem.id,
