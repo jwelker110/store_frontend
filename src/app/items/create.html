@@ -38,12 +38,14 @@
                 <label>Item Image (&lt; 500 KB - .jpg, .png)</label>
                 <input name="itemAvatarUrl" file-input="createCtrl.itemFile" type="file" accept="image/png,image/jpeg" />
             </div>
-            <input class="btn btn-success" type="submit" ng-click="createCtrl.createItem(itemForm)" value="Add it!" />
+            <div class="text-center">
+                <input class="btn btn-success" type="submit" ng-click="createCtrl.createItem(itemForm)" value="Add it!" />
+            </div>
         </form>
     </div>
     <div class="col-md-12">
         <footer class="page-footer">
-            &copy; Jon Welker 2016
+            &copy; <a href="https://github.com/jwelker110">Jon Welker</a> 2016
         </footer>
     </div>
 </div>

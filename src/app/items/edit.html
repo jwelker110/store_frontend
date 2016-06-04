@@ -1,46 +1,55 @@
 <div class="row">
     <div class="col-md-12">
-        <h1>Edit item</h1>
+        <header class="page-title">
+            <h1>Edit item</h1>
+        </header>
     </div>
     <div class="col-md-12">
-        <form name="itemForm" novalidate>
+        <form name="itemForm" class="form-centered" novalidate>
             <div class="form-group">
                 <label for="itemName">Name:</label>
-                <input id="itemName" class="form-control" name="itemName" ng-model="editCtrl.Model.currentItem.name" type="text" required="" />
+                <input id="itemName" class="form-control" name="itemName" ng-model="editCtrl.Model.currentItem.name" type="text" maxlength="30" required />
             </div>
             <div class="form-group">
                 <label for="itemDescription">Description:</label>
-                <textarea id="itemDescription" class="form-control" name="itemDescription" ng-model="editCtrl.Model.currentItem.description" rows="3">
+                <textarea id="itemDescription" class="form-control" name="itemDescription" ng-model="editCtrl.Model.currentItem.description" maxlength="250" rows="3">
                 </textarea>
             </div>
             <div class="form-group">
-                <label for="itemCategory">Category:</label>
-                <select id="itemCategory" class="form-control" ng-model="editCtrl.Model.currentItem.category">
+                <label>Category:</label>
+                <select class="form-control" ng-model="editCtrl.Model.currentItem.category">
                     <option ng-repeat="cat in editCtrl.Model.categories"
                             value="{{cat.name}}"
                             ng-selected="cat.name == editCtrl.Model.currentItem.category">{{cat.name}}</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="itemPrice">Base Price:</label>
-                <input id="itemPrice" class="form-control" name="itemPrice" ng-model="editCtrl.Model.currentItem.price" type="number" step=".01" min="0.00" value="0" required="" />
+                <label>Base Price:</label>
+                <input class="form-control" name="itemPrice" ng-model="editCtrl.Model.currentItem.price" type="number" step=".01" min="0.00" value="0" required="" />
             </div>
             <div class="form-group">
-                <label for="itemSalePrice">Sale Price:</label>
-                <input id="itemSalePrice" class="form-control" name="itemSalePrice" ng-model="editCtrl.Model.currentItem.sale_price" type="number" step=".01" min="0.00" value="0" />
+                <label>Sale Price:</label>
+                <input class="form-control" name="itemSalePrice" ng-model="editCtrl.Model.currentItem.sale_price" type="number" step=".01" min="0.00" value="0" />
             </div>
             <div class="form-group">
-                <label for="itemStock">Stock:</label>
-                <input id="itemStock" class="form-control" name="itemStock" ng-model="editCtrl.Model.currentItem.stock" type="number" step="1" min="0" value="0" required="" />
+                <label>Stock:</label>
+                <input class="form-control" name="itemStock" ng-model="editCtrl.Model.currentItem.stock" type="number" step="1" min="0" value="0" required="" />
             </div>
             <div class="form-group">
-                <label for="itemAvatarUrl">Item Image (&lt; 500 KB):</label>
-                <img ng-src="{{editCtrl.Model.currentItem.image_url}}"/>
-                <input class="btn btn-default" type="button" ng-click="editCtrl.deleteImage()" value="{{editCtrl.imageDelete ? 'Sure?' : 'Delete image'}}" />
-                <input id="itemAvatarUrl" name="itemAvatarUrl" file-input="editCtrl.itemFile" type="file" accept="image/png,image/jpeg" />
+                <label>Item Image (&lt; 500 KB):</label>
+                <a class="btn-remove" title="Remove image" ng-click="editCtrl.deleteImage()"><span class="glyphicon glyphicon-remove"></span></a>
+                <img id="edit-image" ng-src="{{editCtrl.Model.currentItem.image_url}}"/>
+                <input name="itemAvatarUrl" file-input="editCtrl.itemFile" type="file" accept="image/png,image/jpeg" />
             </div>
-            <input class="btn btn-default" type="submit" ng-click="editCtrl.updateItem()" value="Save changes" />
-            <input class="btn btn-default" type="button" ng-click="editCtrl.deleteItem()" value="{{editCtrl.delete ? 'Sure?' : 'Delete item'}}" />
+            <div class="text-center">
+                <input class="btn btn-success" type="submit" ng-click="editCtrl.updateItem()" value="Save changes" />
+                <input class="btn btn-danger" type="button" ng-click="editCtrl.deleteItem()" value="{{editCtrl.delete ? 'Sure?' : 'Delete item'}}" />
+            </div>
         </form>
+    </div>
+    <div class="col-md-12">
+        <footer class="page-footer">
+            &copy; <a href="https://github.com/jwelker110">Jon Welker</a> 2016
+        </footer>
     </div>
 </div>
