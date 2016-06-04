@@ -8,7 +8,6 @@
 
   function NavbarController($location, Model){
     var vm = this;
-    var hidden = true;
 
     vm.Model = Model;
     vm.appName = "Store App";
@@ -19,8 +18,10 @@
         show: true
       }
     ];
+    vm.hidden = true;
+    vm.hiddenDropdown = true;
 
-    vm.isHidden = isHidden;
+    vm.toggleDropdownHidden = toggleDropdownHidden;
     vm.toggleHidden = toggleHidden;
 
     vm.login = login;
@@ -44,18 +45,27 @@
     }
 
     /**
-     * Getter for the variable associated with the navbar collapse
+     * Getter/Setter for the variable associated with the navbar collapse
+     * @param val {boolean} - value indicating hidden
      * @returns {boolean}
      */
-    function isHidden(val){
-      return val ? hidden = val : hidden;
+    function toggleHidden(val){
+      if (val === true) {
+        toggleDropdownHidden(val);
+      }
+      vm.hidden = val ? val : !vm.hidden;
     }
 
     /**
-     * Toggles the var associated with the navbar collapse
+     * Getter/Setter for the variable associated with the navbar collapse
+     * @param val {boolean} - value indicating dropped down
+     * @returns {boolean}
      */
-    function toggleHidden(){
-      hidden = !hidden;
+    function toggleDropdownHidden(val){
+      if (val === true) {
+        toggleHidden(val);
+      }
+      vm.hiddenDropdown = val ? val : !vm.hiddenDropdown;
     }
 
   }

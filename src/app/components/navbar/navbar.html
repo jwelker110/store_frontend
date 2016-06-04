@@ -12,25 +12,25 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="navbar-collapse pull-right" ng-class="{collapse: navCtrl.isHidden()}">
-            <ul class="nav navbar-nav" ng-click="navCtrl.isHidden(true);">
+        <div class="navbar-collapse pull-right" ng-class="{collapse: navCtrl.hidden}">
+            <ul class="nav navbar-nav">
                 <li>
-                    <a ng-show="navCtrl.Model.username" ui-sref="create">Add Item</a>
+                    <a ng-show="navCtrl.Model.username" ui-sref="create" ng-click="navCtrl.toggleHidden(true);">Add Item</a>
                 </li>
                 <li ng-repeat="link in navCtrl.navItems">
-                    <a ng-show="link.show" ui-sref="{{link.sref}}">{{link.name}}</a>
+                    <a ng-show="link.show" ui-sref="{{link.sref}}" ng-click="navCtrl.toggleHidden(true);">{{link.name}}</a>
                 </li>
-                <li class="dropdown">
-                    <a>Category</a>
-                    <ul class="dropdown-menu">
+                <li>
+                    <a ng-click="navCtrl.toggleDropdownHidden();">Category</a>
+                    <ul class="dropdown-menu" ng-class="{hidden: navCtrl.hiddenDropdown}">
                         <li ng-repeat="cat in navCtrl.Model.categories">
-                            <a href="/#/category/{{cat.name}}">{{cat.name}}</a>
+                            <a href="/#/category/{{cat.name}}" ng-click="navCtrl.toggleDropdownHidden(true);">{{cat.name}}</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a ng-show="!navCtrl.Model.username" ng-click="navCtrl.login()">Login</a>
-                    <a ng-show="navCtrl.Model.username" ng-click="navCtrl.logout()">Logout</a>
+                    <a ng-show="!navCtrl.Model.username" ng-click="navCtrl.login()" ng-click="navCtrl.toggleHidden(true);">Login</a>
+                    <a ng-show="navCtrl.Model.username" ng-click="navCtrl.logout()" ng-click="navCtrl.toggleHidden(true);">Logout</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
