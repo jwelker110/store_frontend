@@ -4,15 +4,15 @@
   angular.module('frontend')
       .controller('CreateController', CreateController);
 
-  CreateController.$inject = ['$location', 'Item', 'Model'];
+  CreateController.$inject = ['$location', 'Item', 'Model', 'Message'];
 
-  function CreateController($location, Item, Model){
+  function CreateController($location, Item, Model, Message){
     var vm = this;
 
     vm.Model = Model;
 
-    vm.name = null;
-    vm.description = null;
+    vm.name = '';
+    vm.description = '';
     vm.category = null;
     vm.price = 0.00;
     vm.sale_price = 0.00;
@@ -26,7 +26,9 @@
      * @param form - the form containing the new item's details
      */
     function createItem(form) {
-      // TODO if form invalid, don't perform request
+      if (form.$invalid){
+        return;
+      }
 
       var newItem = Item.items.create({
         jwt_token: Model.getJwtString(),
@@ -39,36 +41,34 @@
       });
 
       // Once the resource request is complete
-      newItem.$promise.then(function(data){
-        if (vm.itemFile) {  // check if an image has been selected and upload it
-          var itemImage = Item.itemImage.update({
-            jwt_token: Model.getJwtString(),
-            name: vm.name,
-            image: vm.itemFile
-          });
-
-          itemImage.$promise.then(uploadImageSuccess, uploadImageFailed);
-
-        } else {
-          createItemSuccess();
-        }
-      });
+      newItem.$promise.then(createItemSuccess, createItemFailure);
     }
 
     /**
      * Handles updating the item and redirecting user when item is created.
      */
     function createItemSuccess() {
+      if (vm.itemFile) {  // check if an image has been selected and upload it
+        var itemImage = Item.itemImage.update({
+          jwt_token: Model.getJwtString(),
+          name: vm.name,
+          image: vm.itemFile
+        });
+
+        itemImage.$promise.then(function(){}, uploadImageFailure);
+
+      }
+      // we need to redirect regardless of whether the image uploaded or not
       Model.refreshItems();
       $location.path('/');
     }
 
-    function uploadImageSuccess(){
-      createItemSuccess();
+    function createItemFailure(){
+      Message.addMessage('The item could not be created at this time.', 'danger');
     }
 
-    function uploadImageFailed(){
-      // TODO adjust the error message received
+    function uploadImageFailure(){
+      Message.addMessage('The item was created, however the image could not be uploaded.', 'danger');
     }
   }
 
