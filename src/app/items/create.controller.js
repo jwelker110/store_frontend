@@ -48,25 +48,40 @@
      * Handles updating the item and redirecting user when item is created.
      */
     function createItemSuccess() {
-      if (vm.itemFile) {  // check if an image has been selected and upload it
-        var itemImage = Item.itemImage.update({
-          jwt_token: Model.getJwtString(),
-          name: vm.name,
-          image: vm.itemFile
-        });
-
-        itemImage.$promise.then(function(){}, uploadImageFailure);
-
+      if (!vm.itemFile) {
+        Model.refreshItems();
+        $location.path('/');
+        return;
       }
-      // we need to redirect regardless of whether the image uploaded or not
-      Model.refreshItems();
-      $location.path('/');
+      // TODO check image size
+      var itemImage = Item.itemImage.update({
+        jwt_token: Model.getJwtString(),
+        name: vm.name,
+        image: vm.itemFile
+      });
+
+      itemImage.$promise.then(uploadImageSuccess, uploadImageFailure);
+
     }
 
+    /**
+     * Notifies user of item creation failure
+     */
     function createItemFailure(){
       Message.addMessage('The item could not be created at this time.', 'danger');
     }
 
+    /**
+     * Refreshes the items and redirects user to homepage
+     */
+    function uploadImageSuccess(){
+      Model.refreshItems();
+      $location.path('/');
+    }
+
+    /**
+     * Notifies user of image upload failure
+     */
     function uploadImageFailure(){
       Message.addMessage('The item was created, however the image could not be uploaded.', 'danger');
     }
