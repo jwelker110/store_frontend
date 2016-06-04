@@ -4,15 +4,16 @@
   angular.module('frontend')
       .controller('EditController', EditController);
 
-  EditController.$inject = ['$stateParams', '$location', 'Model', 'Item'];
+  EditController.$inject = ['$stateParams', '$location', 'Model', 'Item', 'Message'];
 
-  function EditController($stateParams, $location, Model, Item) {
+  function EditController($stateParams, $location, Model, Item, Message) {
     var vm = this;
     var itemName = $stateParams.itemName;
 
     vm.Model = Model;
 
     vm.itemFile = null;
+    vm.delete = false;
 
     Model.setCurrentItem(itemName);
 
@@ -35,8 +36,7 @@
         stock: Model.currentItem.stock
       });
 
-      item.$promise.then(updateItemSuccess)
-      .catch();
+      item.$promise.then(updateItemSuccess, updateItemFailure);
 
     }
 
@@ -45,26 +45,42 @@
      * utilizes the Item resource to attempt to upload the image
      */
     function updateItemSuccess(){
-      if (vm.itemFile) { // TODO check image size
-        var itemImage = Item.itemImage.update({
-          jwt_token: Model.getJwtString(),
-          name: Model.currentItem.name,
-          image: vm.itemFile
-        });
-
-        itemImage.$promise.then(uploadImageSuccess());
-
-      } else {
-        uploadImageSuccess();
+      if (!vm.itemFile) {
+        Model.refreshItems();
+        $location.path('/');
+        return;
       }
+      // TODO check image size
+      var itemImage = Item.itemImage.update({
+        jwt_token: Model.getJwtString(),
+        name: Model.currentItem.name,
+        image: vm.itemFile
+      });
+
+      itemImage.$promise.then(uploadImageSuccess, uploadImageFailure);
+
     }
 
     /**
-     * Updates items and redirects user to homepage
+     * Notifies user of failure to update item
+     */
+    function updateItemFailure(){
+      Message.addMessage('The item could not be updated', 'danger');
+    }
+
+    /**
+     * Redirects user to homepage after the item has been updated
      */
     function uploadImageSuccess(){
       Model.refreshItems();
       $location.path('/');
+    }
+
+    /**
+     * Notifies user of failure to upload image
+     */
+    function uploadImageFailure(){
+      Message.addMessage('The image could not be uploaded.', 'danger');
     }
 
     /**
@@ -80,7 +96,7 @@
         name: itemName
       });
 
-      item.$promise.then(itemDeleteSuccess);
+      item.$promise.then(deleteSuccess, deleteFailure);
     }
 
     /**
@@ -88,25 +104,28 @@
      * and replace it with the default image.
      */
     function deleteImage(){
-      if (!vm.imageDelete) {
-        vm.imageDelete = true;
-        return;
-      }
       var image = Item.itemImage.remove({
         jwt_token: Model.getJwtString(),
         name: itemName
       });
 
-      image.$promise.then(itemDeleteSuccess);
+      image.$promise.then(deleteSuccess, deleteFailure);
     }
 
     /**
      * Resets the current items and redirects to the homepage
      */
-    function itemDeleteSuccess(){
+    function deleteSuccess(){
       Model.resetCurrentItem();
       Model.resetItems();
       $location.path('/');
+    }
+
+    /**
+     * Notifies the user of failure
+     */
+    function deleteFailure(){
+      Message.addMessage('Could not delete at this time', 'danger');
     }
 
   }
