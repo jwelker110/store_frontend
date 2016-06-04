@@ -24,7 +24,7 @@
                     <a ng-click="navCtrl.toggleDropdownHidden();">Category</a>
                     <ul class="dropdown-menu" ng-class="{hidden: navCtrl.hiddenDropdown}">
                         <li ng-repeat="cat in navCtrl.Model.categories">
-                            <a href="/#/category/{{cat.name}}" ng-click="navCtrl.toggleDropdownHidden(true);">{{cat.name}}</a>
+                            <a href="/#/category/{{cat.name}}" ng-click="navCtrl.toggleHidden(true);">{{cat.name}}</a>
                         </li>
                     </ul>
                 </li>

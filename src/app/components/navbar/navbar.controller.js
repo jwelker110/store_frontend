@@ -50,10 +50,10 @@
      * @returns {boolean}
      */
     function toggleHidden(val){
-      if (val === true) {
-        toggleDropdownHidden(val);
-      }
       vm.hidden = val ? val : !vm.hidden;
+      if (vm.hidden) {  // we KNOW that the category dd should be hidden
+        toggleDropdownHidden(true);
+      }
     }
 
     /**
@@ -62,9 +62,6 @@
      * @returns {boolean}
      */
     function toggleDropdownHidden(val){
-      if (val === true) {
-        toggleHidden(val);
-      }
       vm.hiddenDropdown = val ? val : !vm.hiddenDropdown;
     }
 
