@@ -4,9 +4,9 @@
   angular.module('frontend')
       .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['$location', '$window', 'Auth', 'Model'];
+  LoginController.$inject = ['$location', '$window', 'Auth', 'Model', 'Message'];
 
-  function LoginController($location, $window, Auth, Model){
+  function LoginController($location, $window, Auth, Model, Message){
     var vm = this;
 
     var client_id = '576267855242-05a9nsof8812t15vdbj08q3fcvjlkl9d.apps.googleusercontent.com';
@@ -84,7 +84,14 @@
         Model.updateUser();
         // if the state was passed in the URL, redirect to it, else go home
         $location.path(args['state'] ? args['state'] : '/');
-      });
+      }, goauthLoginFailure);
+    }
+
+    /**
+     * Failure callback for Google Oauth login
+     */
+    function goauthLoginFailure(){
+      Message.addMessage('You could not be logged in at this time', 'danger');
     }
 
   }
