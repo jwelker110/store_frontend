@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <header class="browse-title">
+        <header class="page-title">
             <h1>{{browseCtrl.category ? 'Browse items in ' + browseCtrl.category : 'Browse all items'}}</h1>
         </header>
     </div>
@@ -8,8 +8,8 @@
 <div class="row">
     <!-- each item now -->
     <div class="col-lg-4 col-sm-6" ng-repeat="item in browseCtrl.Model.items">
+        <a class="btn-edit" title="Edit" ng-show="browseCtrl.Model.username == item.owner_name" href="#/items/{{item.name}}/edit"><span class="glyphicon glyphicon-pencil"></span></a>
         <div class="item" ng-click="browseCtrl.viewItem(item.name);">
-            <a class="btn-edit" title="Edit" ng-show="browseCtrl.Model.username == item.owner_name" href="#/items/{{item.name}}/edit"><span class="glyphicon glyphicon-pencil"></span></a>
             <div class="item-left">
                 <img ng-src="{{item.image_url}}"/>
             </div>
@@ -23,10 +23,10 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <footer class="browse-nav">
+        <footer class="page-footer">
             <p ng-show="browseCtrl.Model.items.length == 0">No items available.</p>
-            <button ng-show="browseCtrl.Model.items.length > 0" class="btn btn-browse" ng-click="browseCtrl.prevItems();">&lt;&lt; Prev</button>
-            <button ng-show="browseCtrl.Model.items.length > 0" class="btn btn-browse" ng-click="browseCtrl.nextItems();">Next &gt;&gt;</button>
+            <a ng-show="browseCtrl.Model.items.length > 0" class="btn btn-browse" ng-click="browseCtrl.prevItems();">&lt;&lt; Prev</a>
+            <a ng-show="browseCtrl.Model.items.length > 0" class="btn btn-browse" ng-click="browseCtrl.nextItems();">Next &gt;&gt;</a>
         </footer>
     </div>
 </div>
