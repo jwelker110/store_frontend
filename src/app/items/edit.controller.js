@@ -8,6 +8,7 @@
 
   function EditController($stateParams, $location, Model, Item, Message) {
     var vm = this;
+    var fileSizeLimit = (1024 * 1024) / 2;
     var itemName = $stateParams.itemName;
 
     vm.Model = Model;
@@ -50,7 +51,12 @@
         $location.path('/');
         return;
       }
-      // TODO check image size
+      // check file size
+      if (vm.itemFile.size > fileSizeLimit) {
+        Message.addMessage('Image must be smaller than 500 KB', 'danger');
+        return;
+      }
+
       var itemImage = Item.itemImage.update({
         jwt_token: Model.getJwtString(),
         name: Model.currentItem.name,

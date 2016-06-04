@@ -8,6 +8,7 @@
 
   function CreateController($location, Item, Model, Message){
     var vm = this;
+    var fileSizeLimit = (1024 * 1024) / 2;
 
     vm.Model = Model;
 
@@ -53,7 +54,13 @@
         $location.path('/');
         return;
       }
-      // TODO check image size
+      // check file size
+      if (vm.itemFile.size > fileSizeLimit) {
+        Message.addMessage('Item added. Image must be smaller than 500 KB', 'warning');
+        Model.refreshItems();
+        $location.path('/');
+        return;
+      }
       var itemImage = Item.itemImage.update({
         jwt_token: Model.getJwtString(),
         name: vm.name,
@@ -84,6 +91,8 @@
      */
     function uploadImageFailure(){
       Message.addMessage('The item was created, however the image could not be uploaded.', 'danger');
+      Model.refreshItems();
+      $location.path('/');
     }
   }
 
