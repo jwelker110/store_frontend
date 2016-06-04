@@ -36,6 +36,16 @@ $default-link-color: #5bbc7f;
 
 form {
   max-width: 320px;
+
+  &.ng-submitted {
+	> .form-group {
+	  > .ng-invalid {
+		-webkit-box-shadow: 0px 0px 5px 0px $brand-danger;
+		-moz-box-shadow: 0px 0px 5px 0px $brand-danger;
+		box-shadow: 0px 0px 5px 0px $brand-danger;
+	  }
+	}
+  }
 }
 
 a {
@@ -48,6 +58,10 @@ a {
   &:active {
 	outline: none;
   }
+}
+
+figcaption {
+  text-align: center;
 }
 
 #edit-image {
@@ -75,6 +89,13 @@ a {
 
   &:hover {
 	cursor: pointer;
+  }
+}
+
+.msg {
+  &-invalid {
+	color: $brand-danger;
+	text-align: center;
   }
 }
 
@@ -185,18 +206,8 @@ a {
 	max-width: 320px;
 	border-radius: 5px;
 	display: block;
-	margin: 10px auto;
+	margin: 5px auto;
 
-	&-details {
-	  padding: 5px;
-	  border-radius: 10px;
-	  background-color: #4a4a4a;
-	}
-
-	&-caption {
-	  text-align: center;
-	  color: white;
-	}
   }
 
   &-name {
@@ -211,7 +222,7 @@ a {
 	&-list {
 	  list-style-type: none;
 	  padding: 0px;
-	  font-size: 14px;
+	  font-size: 16px;
 	}
   }
 
