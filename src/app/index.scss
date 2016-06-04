@@ -50,6 +50,7 @@ form {
 
 a {
   color: $default-link-color;
+  cursor: pointer;
 
   &:hover {
 	color: $default-link-color;
@@ -62,6 +63,7 @@ a {
 
 figcaption {
   text-align: center;
+  margin: 5px auto;
 }
 
 #edit-image {
@@ -73,12 +75,9 @@ figcaption {
   outline: none;
 }
 
-.dropdown:hover > .dropdown-menu {
+.dropdown-menu {
+  text-align: left;
   display: inline-block;
-}
-
-.dropdown-menu > li > a {
-  display: inherit;
 }
 
 .active {
@@ -128,6 +127,19 @@ figcaption {
 	&:hover {
 	  background-color: #ddd;
 	  color: $default-link-color;
+	}
+
+	&-inverse {
+	  display: inline-block;
+	  font-size: 16px;
+	  color: $default-text-color;
+	  border-radius: 5px;
+	  padding: 3px;
+	  margin-left: 5px;
+
+	  &:hover {
+		color: $default-link-color;
+	  }
 	}
   }
 
@@ -235,6 +247,33 @@ figcaption {
 
   &-centered {
 	margin: 10px auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-collapse.pull-right {
+	float: none !important;
+	text-align: center;
+  }
+
+  .nav>li, .nav>li>a {
+	display: inline-block;
+	width: 100%;
+  }
+
+  .dropdown-menu {
+	background-color: lighten($navbar-default-bg, 10%);
+	position: relative;
+	width: 100%;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	text-align: center;
+
+	> li > a {
+	  padding-top: 10px;
+	  padding-bottom: 10px;
+	}
   }
 }
 
