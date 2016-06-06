@@ -21,7 +21,7 @@
                     <a ng-show="link.show" ui-sref="{{link.sref}}" ng-click="navCtrl.toggleHidden(true);">{{link.name}}</a>
                 </li>
                 <li>
-                    <a ng-click="navCtrl.toggleDropdownHidden();">Category<div class="arrow-down"></div></a>
+                    <a ng-click="navCtrl.toggleDropdownHidden();">Category<span class="glyphicon glyphicon-triangle-bottom"></span></a>
                     <ul class="dropdown-menu" ng-class="{hidden: navCtrl.hiddenDropdown}">
                         <li ng-repeat="cat in navCtrl.Model.categories">
                             <a href="/#/category/{{cat.name}}" ng-click="navCtrl.toggleHidden(true);">{{cat.name}}</a>
