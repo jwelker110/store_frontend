@@ -7,6 +7,11 @@
   EditController.$inject = ['$stateParams', '$location', 'Model', 'Item', 'Message'];
 
   function EditController($stateParams, $location, Model, Item, Message) {
+    if (!Model.username) {
+      Model.setPrevPath('/items/' + $stateParams.itemName + '/edit');
+      $location.path('/login');
+    }
+
     var vm = this;
     var fileSizeLimit = (1024 * 1024) / 2;
     var itemName = $stateParams.itemName;

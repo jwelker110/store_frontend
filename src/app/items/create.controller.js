@@ -7,6 +7,11 @@
   CreateController.$inject = ['$location', 'Item', 'Model', 'Message'];
 
   function CreateController($location, Item, Model, Message){
+    if (!Model.username) {
+      Model.setPrevPath('/create');
+      $location.path('/login');
+    }
+
     var vm = this;
     var fileSizeLimit = (1024 * 1024) / 2;
 
