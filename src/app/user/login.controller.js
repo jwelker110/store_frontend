@@ -4,9 +4,9 @@
   angular.module('frontend')
       .controller('LoginController', LoginController);
 
-  LoginController.$inject = ['$location', '$window', 'Auth', 'Model', 'Message'];
+  LoginController.$inject = ['$location', '$window', 'jwtHelper', 'Auth', 'Model', 'Message'];
 
-  function LoginController($location, $window, Auth, Model, Message){
+  function LoginController($location, $window, jwtHelper, Auth, Model, Message){
     var vm = this;
 
     var client_id = '576267855242-05a9nsof8812t15vdbj08q3fcvjlkl9d.apps.googleusercontent.com';
@@ -81,6 +81,9 @@
       goauth.$promise.then(function(data){
         Model.setStorageType(rememberMe);
         Model.setJwtString(data.jwt_token);
+        // set this now so we can redirect user
+        var payload = jwtHelper.decodeToken(data.jwt_token);
+        Model.username = payload.username;
         Model.updateUser();
         // if the state was passed in the URL, redirect to it, else go home
         $location.path(args['state'] ? args['state'] : '/');
