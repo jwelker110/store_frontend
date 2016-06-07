@@ -296,21 +296,21 @@
       }
 
       var newToken = Auth.reauth.refresh({
-        jwt_token: getJwtString()
+        jwt_token: jwt
       });
 
-      newToken.$promise
-          .then(function(data){
-            setJwtString(data.jwt_token);
+      newToken.$promise.then(newTokenSuccess);
 
-            var payload = jwtHelper.decodeToken(getJwtString());
+    }
 
-            model.username = payload.username;
-          })
-          .catch(function(data){
-
-          });
-
+    /**
+     * Update the JWT and Model after receiving new token
+     * @param data - Response from server
+     */
+    function newTokenSuccess(data) {
+      setJwtString(data.jwt_token);
+      var payload = jwtHelper.decodeToken(getJwtString());
+      model.username = payload.username;
     }
 
     /**
