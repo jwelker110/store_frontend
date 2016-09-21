@@ -12,7 +12,7 @@
       /**
        * Resource for refreshing JWT tokens
        */
-      reauth: $resource('http://localhost:8080/reauth', {},
+      reauth: $resource('/reauth', {},
           {
             refresh: {
               method: 'POST',
@@ -24,7 +24,7 @@
       /**
        * Resource to login/signup the user after their OAuth token has been confirmed.
        */
-      goauth: $resource('http://localhost:8080/goauth', {},
+      goauth: $resource('/goauth', {},
           {
             submit: {
               method: 'POST',

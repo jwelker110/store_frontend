@@ -13,7 +13,7 @@
        * This resource is used to query existing items, and create
        * new ones.
        */
-      items: $resource('http://localhost:8080/api/v1/items.json', {offset: 0, category: null},
+      items: $resource('/api/v1/items.json', {offset: 0, category: null},
           {
             create: {
               method: 'POST',
@@ -32,7 +32,7 @@
        * This resource is used to query/update a specific item, as well
        * as remove it.
        */
-      itemDetails: $resource('http://localhost:8080/api/v1/items/details.json', {name: null},
+      itemDetails: $resource('/api/v1/items/details.json', {name: null},
           {
             update: {
               method: 'PUT',
@@ -59,7 +59,7 @@
        * This resource is used to upload an image to be used with a given item,
        * or remove an existing image.
        */
-      itemImage: $resource('http://localhost:8080/api/v1/items/image', {},
+      itemImage: $resource('/api/v1/items/image', {},
           {
             update: {
               method: 'PUT',
