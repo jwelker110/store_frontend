@@ -9,7 +9,7 @@
   function LoginController($location, $window, jwtHelper, Auth, Model, Message){
     var vm = this;
 
-    var client_id = '576267855242-05a9nsof8812t15vdbj08q3fcvjlkl9d.apps.googleusercontent.com';
+    var client_id = '818303397260-pr5aqut8j4eljmikvd6a9mam1gaohrdh.apps.googleusercontent.com';
     var h = $location.hash();  // grab the current hash let's see if we have args related to OAuth
     $location.hash('');        // clean up the hash
     var args = parseArgs(h);   // grab the args from the hash
